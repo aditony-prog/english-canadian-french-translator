@@ -38,10 +38,6 @@ h1 {
     margin: 4px 0 10px;
 }
 
-.top-actions {
-    margin-bottom: 10px;
-}
-
 .translator-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -70,14 +66,26 @@ h1 {
     font-size: 0.95rem;
 }
 
-textarea {
+#inputText,
+#outputText {
     width: 100%;
-    min-height: 150px;
+    min-height: 250px;
     resize: none;
     border: none;
     outline: none;
     padding: 14px;
     font-size: 15px;
+    line-height: 1.4;
+}
+
+#protectedTerms {
+    width: 100%;
+    min-height: 60px;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 12px;
+    font-size: 14px;
     line-height: 1.4;
 }
 
@@ -94,6 +102,11 @@ textarea {
     gap: 10px;
     margin-top: 10px;
     flex-wrap: wrap;
+}
+
+.toolbar {
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 button {
@@ -175,10 +188,6 @@ select {
     font-size: 13px;
 }
 
-#protectedTerms {
-    min-height: 60px;
-}
-
 .footer {
     text-align: center;
     margin-top: 10px;
@@ -187,7 +196,6 @@ select {
 }
 
 @media (max-width: 900px) {
-
     .translator-grid {
         grid-template-columns: 1fr;
     }
@@ -196,7 +204,8 @@ select {
         grid-template-columns: 1fr;
     }
 
-    textarea {
-        min-height: 130px;
+    #inputText,
+    #outputText {
+        min-height: 180px;
     }
 }
