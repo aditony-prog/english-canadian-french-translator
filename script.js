@@ -12,6 +12,47 @@ const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
 const translateBtn = document.getElementById("translateBtn");
 
+function getProtectedTerms() {
+
+    const field = document.getElementById("doNotTranslate");
+
+    if (!field) {
+        return [];
+    }
+
+    return field.value
+        .split("\n")
+        .map(term => term.trim())
+        .filter(term => term.length > 0);
+}
+
+function applyDictionaryMarkup(text, terms) {
+
+    let updatedText = text;
+
+    terms.forEach(term => {
+
+        const escaped = term.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            "\\$&"
+        );
+
+        const regex = new RegExp(
+            escaped,
+            "gi"
+        );
+
+        updatedText = updatedText.replace(
+            regex,
+            match =>
+                `<mstrans:dictionary translation="${match}">${match}</mstrans:dictionary>`
+        );
+
+    });
+
+    return updatedText;
+}
+
 inputText.addEventListener("input", () => {
     inputCount.textContent = inputText.value.length;
 });
@@ -64,6 +105,17 @@ translateBtn.addEventListener("click", async () => {
         return;
     }
 
+    const protectedTerms = getProtectedTerms();
+
+    const processedText =
+        applyDictionaryMarkup(
+            text,
+            protectedTerms
+        );
+
+    console.log("Protected Terms:", protectedTerms);
+    console.log("Processed Text:", processedText);
+
     translateBtn.disabled = true;
     translateBtn.textContent = "Translating...";
 
@@ -75,7 +127,7 @@ translateBtn.addEventListener("click", async () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                text: text
+                text: processedText
             })
         });
 
