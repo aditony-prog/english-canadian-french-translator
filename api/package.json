@@ -1,9 +1,8 @@
 {
   "name": "translator-api",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {},
-  "engines": {
-    "node": "22.x"
+  "private": true,
+  "dependencies": {
+    "@azure/functions": "^4.0.0"
   }
 }
