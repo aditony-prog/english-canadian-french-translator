@@ -15,9 +15,6 @@ const translateBtn = document.getElementById("translateBtn");
 const protectedTermsField =
     document.getElementById("protectedTerms");
 
-const maxLength =
-    document.getElementById("maxLength");
-
 /*
     DO NOT TRANSLATE FUNCTIONS
 */
@@ -71,26 +68,7 @@ if (protectedTermsField) {
 }
 
 /*
-    SAVE CHARACTER LIMIT
-*/
-
-if (maxLength) {
-
-    maxLength.addEventListener(
-        "change",
-        () => {
-
-            localStorage.setItem(
-                "adiCharacterLimit",
-                maxLength.value
-            );
-
-        }
-    );
-}
-
-/*
-    RESTORE SAVED SETTINGS
+    RESTORE PROTECTED TERMS
 */
 
 window.addEventListener("load", () => {
@@ -107,19 +85,6 @@ window.addEventListener("load", () => {
         protectedTermsField.value =
             savedTerms;
     }
-
-    const savedLimit =
-        localStorage.getItem(
-            "adiCharacterLimit"
-        );
-
-    if (
-        maxLength &&
-        savedLimit
-    ) {
-        maxLength.value =
-            savedLimit;
-    }
 });
 
 /*
@@ -127,9 +92,7 @@ window.addEventListener("load", () => {
 */
 
 inputText.addEventListener("input", () => {
-
-    inputCount.textContent =
-        inputText.value.length;
+    inputCount.textContent = inputText.value.length;
 });
 
 /*
@@ -144,13 +107,9 @@ clearBtn.addEventListener("click", () => {
     inputCount.textContent = "0";
     outputCount.textContent = "0";
 
-    document.getElementById(
-        "qualityScore"
-    ).textContent = "--%";
+    document.getElementById("qualityScore").textContent = "--%";
 
-    document.getElementById(
-        "qualityLabel"
-    ).textContent =
+    document.getElementById("qualityLabel").textContent =
         "Awaiting Translation";
 });
 
@@ -177,134 +136,90 @@ copyBtn.addEventListener("click", async () => {
     COPY SOURCE TEXT
 */
 
-copyInputBtn.addEventListener(
-    "click",
-    async () => {
+copyInputBtn.addEventListener("click", async () => {
 
-        if (!inputText.value) return;
+    if (!inputText.value) return;
 
-        await navigator.clipboard.writeText(
-            inputText.value
-        );
+    await navigator.clipboard.writeText(
+        inputText.value
+    );
 
-        copyInputBtn.textContent = "Copied!";
+    copyInputBtn.textContent = "Copied!";
 
-        setTimeout(() => {
-            copyInputBtn.textContent =
-                "Copy";
-        }, 1500);
-    }
-);
+    setTimeout(() => {
+        copyInputBtn.textContent = "Copy";
+    }, 1500);
+});
 
 /*
     TRANSLATE
 */
 
-translateBtn.addEventListener(
-    "click",
-    async () => {
+translateBtn.addEventListener("click", async () => {
 
-        const text =
-            inputText.value.trim();
+    const text = inputText.value.trim();
 
-        if (!text) {
-
-            alert(
-                "Enter text first."
-            );
-
-            return;
-        }
-
-        const selectedLimit =
-            maxLength.value;
-
-        if (
-            selectedLimit !==
-                "Unlimited" &&
-            text.length >
-                Number(
-                    selectedLimit
-                )
-        ) {
-
-            alert(
-                `Input exceeds the selected character limit of ${selectedLimit} characters.`
-            );
-
-            return;
-        }
-
-        const protectedTerms =
-            getProtectedTerms();
-
-        const processedText =
-            applyDictionaryMarkup(
-                text,
-                protectedTerms
-            );
-
-        translateBtn.disabled =
-            true;
-
-        translateBtn.textContent =
-            "Translating...";
-
-        try {
-
-            const response =
-                await fetch(
-                    FUNCTION_URL,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-                        body: JSON.stringify(
-                            {
-                                text: processedText
-                            }
-                        )
-                    }
-                );
-
-            const result =
-                await response.json();
-
-            outputText.value =
-                result.translation;
-
-            outputCount.textContent =
-                result.translation.length;
-
-            document.getElementById(
-                "qualityScore"
-            ).textContent =
-                "95%";
-
-            document.getElementById(
-                "qualityLabel"
-            ).textContent =
-                "Excellent";
-
-        } catch (error) {
-
-            console.error(
-                error
-            );
-
-            alert(
-                "Translation failed."
-            );
-
-        } finally {
-
-            translateBtn.disabled =
-                false;
-
-            translateBtn.textContent =
-                "Translate";
-        }
+    if (!text) {
+        alert("Enter text first.");
+        return;
     }
-);
+
+    const protectedTerms =
+        getProtectedTerms();
+
+    const processedText =
+        applyDictionaryMarkup(
+            text,
+            protectedTerms
+        );
+
+    translateBtn.disabled = true;
+    translateBtn.textContent =
+        "Translating...";
+
+    try {
+
+        const response = await fetch(
+            FUNCTION_URL,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+                    text: processedText
+                })
+            }
+        );
+
+        const result =
+            await response.json();
+
+        outputText.value =
+            result.translation;
+
+        outputCount.textContent =
+            result.translation.length;
+
+        document.getElementById(
+            "qualityScore"
+        ).textContent = "95%";
+
+        document.getElementById(
+            "qualityLabel"
+        ).textContent = "Excellent";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Translation failed.");
+
+    } finally {
+
+        translateBtn.disabled = false;
+        translateBtn.textContent =
+            "Translate";
+    }
+});
