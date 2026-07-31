@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian French Translator</title>
+    <link rel="/head>
+<body>
+
+    <div class="container">
+        <h1>Canadian French Translator</h1>
+
+        <div class="translator-grid">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>English</h3>
+                </div>
+
+                <textarea
+                    id="inputText"
+                    placeholder="Enter English text..."
+                ></textarea>
+
+                <div class="counter">
+                    Characters: <span id="inputCount">0</span>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Canadian French</h3>
+                </div>
+
+                <textarea
+                    id="outputText"
+                    readonly
+                    placeholder="Translation will appear here..."
+                ></textarea>
+
+                <div class="counter">
+                    Characters: <span id="outputCount">0</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="actions">
+            <button id="translateBtn">Translate</button>
+            <button id="clearBtn">Clear</button>
+            <button id="copyBtn">Copy Translation</button>
+        </div>
+
+        <div class="quality-card">
+            <h3>Quality Score</h3>
+            <div id="qualityScore">--%</div>
+            <p id="qualityLabel">Awaiting Translation</p>
+        </div>
+    </div>
+
+    .js"></script>
+
+</body>
+</html>
+``
