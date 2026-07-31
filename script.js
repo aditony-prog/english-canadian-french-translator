@@ -12,9 +12,14 @@ const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
 const translateBtn = document.getElementById("translateBtn");
 
+/*
+    DO NOT TRANSLATE FUNCTIONS
+*/
+
 function getProtectedTerms() {
 
-    const field = document.getElementById("doNotTranslate");
+    const field =
+        document.getElementById("protectedTerms");
 
     if (!field) {
         return [];
@@ -32,30 +37,37 @@ function applyDictionaryMarkup(text, terms) {
 
     terms.forEach(term => {
 
-        const escaped = term.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-        );
+        const escaped =
+            term.replace(
+                /[.*+?^${}()|[\]\\]/g,
+                "\\$&"
+            );
 
-        const regex = new RegExp(
-            escaped,
-            "gi"
-        );
+        const regex =
+            new RegExp(escaped, "gi");
 
-        updatedText = updatedText.replace(
-            regex,
-            match =>
-                `<mstrans:dictionary translation="${match}">${match}</mstrans:dictionary>`
-        );
-
+        updatedText =
+            updatedText.replace(
+                regex,
+                match =>
+                    `<mstrans:dictionary translation="${match}">${match}</mstrans:dictionary>`
+            );
     });
 
     return updatedText;
 }
 
+/*
+    CHARACTER COUNTER
+*/
+
 inputText.addEventListener("input", () => {
     inputCount.textContent = inputText.value.length;
 });
+
+/*
+    CLEAR BUTTON
+*/
 
 clearBtn.addEventListener("click", () => {
 
@@ -66,15 +78,22 @@ clearBtn.addEventListener("click", () => {
     outputCount.textContent = "0";
 
     document.getElementById("qualityScore").textContent = "--%";
+
     document.getElementById("qualityLabel").textContent =
         "Awaiting Translation";
 });
+
+/*
+    COPY TRANSLATION
+*/
 
 copyBtn.addEventListener("click", async () => {
 
     if (!outputText.value) return;
 
-    await navigator.clipboard.writeText(outputText.value);
+    await navigator.clipboard.writeText(
+        outputText.value
+    );
 
     copyBtn.textContent = "Copied!";
 
@@ -83,11 +102,17 @@ copyBtn.addEventListener("click", async () => {
     }, 1500);
 });
 
+/*
+    COPY SOURCE TEXT
+*/
+
 copyInputBtn.addEventListener("click", async () => {
 
     if (!inputText.value) return;
 
-    await navigator.clipboard.writeText(inputText.value);
+    await navigator.clipboard.writeText(
+        inputText.value
+    );
 
     copyInputBtn.textContent = "Copied!";
 
@@ -95,6 +120,10 @@ copyInputBtn.addEventListener("click", async () => {
         copyInputBtn.textContent = "Copy";
     }, 1500);
 });
+
+/*
+    TRANSLATE
+*/
 
 translateBtn.addEventListener("click", async () => {
 
@@ -105,7 +134,8 @@ translateBtn.addEventListener("click", async () => {
         return;
     }
 
-    const protectedTerms = getProtectedTerms();
+    const protectedTerms =
+        getProtectedTerms();
 
     const processedText =
         applyDictionaryMarkup(
@@ -113,44 +143,25 @@ translateBtn.addEventListener("click", async () => {
             protectedTerms
         );
 
-    console.log("Protected Terms:", protectedTerms);
-    console.log("Processed Text:", processedText);
+    console.log(
+        "Protected Terms:",
+        protectedTerms
+    );
+
+    console.log(
+        "Processed Text:",
+        processedText
+    );
 
     translateBtn.disabled = true;
-    translateBtn.textContent = "Translating...";
+    translateBtn.textContent =
+        "Translating...";
 
     try {
 
-        const response = await fetch(FUNCTION_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                text: processedText
-            })
-        });
-
-        const result = await response.json();
-
-        outputText.value = result.translation;
-
-        outputCount.textContent =
-            result.translation.length;
-
-        document.getElementById("qualityScore")
-            .textContent = "95%";
-
-        document.getElementById("qualityLabel")
-            .textContent = "Excellent";
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Translation failed.");
-    }
-
-    translateBtn.disabled = false;
-    translateBtn.textContent = "Translate";
-});
+        const response = await fetch(
+            FUNCTION_URL,
+            {
+                method: "POST",
+                headers: {
+        
