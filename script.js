@@ -1,3 +1,6 @@
+const FUNCTION_URL =
+    "https://adi-translator-api-dxgceahfdwe0fwbz.centralus-01.azurewebsites.net/api/translate";
+
 const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
 
@@ -66,31 +69,22 @@ translateBtn.addEventListener("click", async () => {
 
     try {
 
-        const response = await fetch("/api/translate", {
+        const response = await fetch(FUNCTION_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                text: text,
-                from: "en",
-                to: "fr-CA"
+                text: text
             })
         });
 
-        if (!response.ok) {
-            throw new Error("Translation request failed");
-        }
-
         const result = await response.json();
 
-        const translated =
-            result[0].translations[0].text;
-
-        outputText.value = translated;
+        outputText.value = result.translation;
 
         outputCount.textContent =
-            translated.length;
+            result.translation.length;
 
         document.getElementById("qualityScore")
             .textContent = "95%";
