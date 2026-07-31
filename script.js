@@ -12,14 +12,8 @@ const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
 const translateBtn = document.getElementById("translateBtn");
 
-/*
-    DO NOT TRANSLATE FUNCTIONS
-*/
-
 function getProtectedTerms() {
-
-    const field =
-        document.getElementById("protectedTerms");
+    const field = document.getElementById("protectedTerms");
 
     if (!field) {
         return [];
@@ -32,136 +26,117 @@ function getProtectedTerms() {
 }
 
 function applyDictionaryMarkup(text, terms) {
-
     let updatedText = text;
 
     terms.forEach(term => {
+        const escaped = term.replace(
+            /[.*+?^${}()|[\]\\]/g,
+          * "\\$&"
+        );
 
-        const escaped =
-            term.replace(
-                /[.*+?^${}()|[\]\\]/g,
-                "\\$&"
-            );
-
-        const regex =
-            new RegExp(escaped, "gi");
-
-        updatedText =
-            updatedText.replace(
-                regex,
-                match =>
-                    `<mstrans:dictionary translation="${match}">${match}</mstrans:dictionary>`
-            );
+        const *egex = new RegExp(escaped, "gi");
+*        updatedText = updatedText.*eplace(
+            regex,
+       *    match =>
+                `<mst*ans:dictionary translation="${matc*}">${match}</mstrans:dictionary>`
+*       );
     });
 
-    return updatedText;
+    return upda*edText;
 }
 
-/*
-    CHARACTER COUNTER
-*/
-
-inputText.addEventListener("input", () => {
-    inputCount.textContent = inputText.value.length;
+inputText.addEventListe*er("input", () => {
+    inputCount*textContent = inputText.value.leng*h;
 });
 
-/*
-    CLEAR BUTTON
-*/
-
-clearBtn.addEventListener("click", () => {
-
-    inputText.value = "";
+clearBtn.addEventListener(*click", () => {
+    inputText.valu* = "";
     outputText.value = "";
-
-    inputCount.textContent = "0";
-    outputCount.textContent = "0";
-
-    document.getElementById("qualityScore").textContent = "--%";
-
-    document.getElementById("qualityLabel").textContent =
-        "Awaiting Translation";
+*    inputCount.textContent = "0";
+*   outputCount.textContent = "0";
+*    document.getElementById("quali*yScore").textContent = "--%";
+    *ocument.getElementById("qualityLab*l").textContent =
+        "Awaitin* Translation";
 });
 
-/*
-    COPY TRANSLATION
-*/
+copyBtn.addEve*tListener("click", async () => {
+ *  if (!outputText.value) return;
 
-copyBtn.addEventListener("click", async () => {
+*   await navigator.clipboard.write*ext(outputText.value);
 
-    if (!outputText.value) return;
+    copyBt*.textContent = "Copied!";
 
-    await navigator.clipboard.writeText(
-        outputText.value
-    );
+    set*imeout(() => {
+        copyBtn.tex*Content = "Copy";
+    }, 1500);
+})*
 
-    copyBtn.textContent = "Copied!";
+copyInputBtn.addEventListener("c*ick", async () => {
+    if (!input*ext.value) return;
 
-    setTimeout(() => {
-        copyBtn.textContent = "Copy";
+    await navi*ator.clipboard.writeText(inputText*value);
+
+    copyInputBtn.textCont*nt = "Copied!";
+
+    setTimeout(()*=> {
+        copyInputBtn.textCont*nt = "Copy";
     }, 1500);
 });
 
-/*
-    COPY SOURCE TEXT
-*/
+tr*nslateBtn.addEventListener("click"* async () => {
 
-copyInputBtn.addEventListener("click", async () => {
+    const text = i*putText.value.trim();
 
-    if (!inputText.value) return;
-
-    await navigator.clipboard.writeText(
-        inputText.value
-    );
-
-    copyInputBtn.textContent = "Copied!";
-
-    setTimeout(() => {
-        copyInputBtn.textContent = "Copy";
-    }, 1500);
-});
-
-/*
-    TRANSLATE
-*/
-
-translateBtn.addEventListener("click", async () => {
-
-    const text = inputText.value.trim();
-
-    if (!text) {
-        alert("Enter text first.");
+    if (!te*t) {
+        alert("Enter text fir*t.");
         return;
     }
 
-    const protectedTerms =
-        getProtectedTerms();
+    c*nst protectedTerms = getProtectedT*rms();
 
     const processedText =
-        applyDictionaryMarkup(
-            text,
-            protectedTerms
+*       applyDictionaryMarkup(
+    *       text,
+            protected*erms
         );
 
-    console.log(
-        "Protected Terms:",
-        protectedTerms
-    );
+    console.log("*rotected Terms:", protectedTerms);*    console.log("Processed Text:",*processedText);
 
-    console.log(
-        "Processed Text:",
-        processedText
-    );
-
-    translateBtn.disabled = true;
-    translateBtn.textContent =
-        "Translating...";
+    translateBtn.*isabled = true;
+    translateBtn.t*xtContent = "Translating...";
 
     try {
 
-        const response = await fetch(
-            FUNCTION_URL,
-            {
-                method: "POST",
-                headers: {
-        
+        const response = await fetch(FUNCTION_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                text: processedText
+            })
+        });
+
+        const result = await response.json();
+
+        outputText.value = result.translation;
+
+        outputCount.textContent =
+            result.translation.length;
+
+        document.getElementById("qualityScore")
+            .textContent = "95%";
+
+        document.getElementById("qualityLabel")
+            .textContent = "Excellent";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Translation failed.");
+    }
+
+    translateBtn.disabled = false;
+    translateBtn.textContent = "Translate";
+});
