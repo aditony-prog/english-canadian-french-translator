@@ -14,20 +14,24 @@
         <h1>Canadian French Translator</h1>
 
         <p class="subtitle">
-            English → Canadian French (fr-CA)
+            English ⇄ French (CA)
         </p>
+
+        <div class="actions" style="margin-bottom:20px;">
+            <button id="swapBtn">⇄ Swap Languages</button>
+        </div>
 
         <div class="translator-grid">
 
             <div class="panel">
 
                 <div class="panel-header">
-                    <h3>English</h3>
+                    <h3 id="sourceLanguage">English</h3>
                 </div>
 
                 <textarea
                     id="inputText"
-                    placeholder="Enter English text..."
+                    placeholder="Enter text..."
                 ></textarea>
 
                 <div class="counter">
@@ -39,7 +43,8 @@
             <div class="panel">
 
                 <div class="panel-header">
-                    <h3>Canadian French</h3>
+                    <h3 id="targetLanguage">French (CA)</h3>
+                    <button id="copyBtn">Copy</button>
                 </div>
 
                 <textarea
@@ -56,33 +61,45 @@
 
         </div>
 
-        <div class="actions">
-            <button id="translateBtn">Translate</button>
-            <button id="clearBtn">Clear Input</button>
-            <button id="copyBtn">Copy Translation</button>
+        <div class="quality-card">
+
+            <h3>Translation Settings</h3>
+
+            <div style="margin-top:20px;">
+
+                <label for="maxLength">
+                    Maximum Output Length
+                </label>
+
+                <br><br>
+
+                <select id="maxLength">
+                    <option>Unlimited</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>75</option>
+                    <option>100</option>
+                    <option>150</option>
+                </select>
+
+            </div>
+
         </div>
 
         <div class="quality-card">
 
-            <h3>Quality Score</h3>
+            <h3>Protected Terms</h3>
 
-            <div id="qualityScore">--%</div>
+            <p>
+                Words that should never be translated.
+            </p>
 
-            <div class="quality-bar">
-                <div class="quality-bar-fill"></div>
-            </div>
-
-            <p id="qualityLabel">Awaiting Translation</p>
+            <textarea
+                id="protectedTerms"
+                style="min-height:150px;"
+                placeholder="Microsoft Copilot&#10;Power BI&#10;Teams"
+            ></textarea>
 
         </div>
 
-        <div class="footer">
-            Powered by Azure AI Translator
-        </div>
-
-    </div>
-
-    <script src="script.js"></script>
-
-</body>
-</html>
+        <div class="actions">
