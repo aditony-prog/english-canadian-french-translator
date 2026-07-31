@@ -1,65 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canadian French Translator</title>
-    <link rel="/head>
-<body>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 30px;
+}
 
-    <div class="container">
-        <h1>Canadian French Translator</h1>
+.container {
+    max-width: 1300px;
+    margin: auto;
+}
 
-        <div class="translator-grid">
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-            <div class="panel">
-                <div class="panel-header">
-                    <h3>English</h3>
-                </div>
+.translator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
-                <textarea
-                    id="inputText"
-                    placeholder="Enter English text..."
-                ></textarea>
+.panel {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
 
-                <div class="counter">
-                    Characters: <span id="inputCount">0</span>
-                </div>
-            </div>
+.panel-header {
+    margin-bottom: 10px;
+}
 
-            <div class="panel">
-                <div class="panel-header">
-                    <h3>Canadian French</h3>
-                </div>
+textarea {
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    resize: vertical;
+    box-sizing: border-box;
+    font-size: 16px;
+}
 
-                <textarea
-                    id="outputText"
-                    readonly
-                    placeholder="Translation will appear here..."
-                ></textarea>
+.counter {
+    margin-top: 10px;
+    color: #666;
+}
 
-                <div class="counter">
-                    Characters: <span id="outputCount">0</span>
-                </div>
-            </div>
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
 
-        </div>
+button {
+    background: #0078d4;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
-        <div class="actions">
-            <button id="translateBtn">Translate</button>
-            <button id="clearBtn">Clear</button>
-            <button id="copyBtn">Copy Translation</button>
-        </div>
+button:hover {
+    background: #106ebe;
+}
 
-        <div class="quality-card">
-            <h3>Quality Score</h3>
-            <div id="qualityScore">--%</div>
-            <p id="qualityLabel">Awaiting Translation</p>
-        </div>
-    </div>
+.quality-card {
+    margin-top: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
 
-    .js"></script>
+#qualityScore {
+    font-size: 48px;
+    font-weight: bold;
+    color: #107c10;
+}
 
-</body>
-</html>
-``
+@media (max-width: 768px) {
+    .translator-grid {
+        grid-template-columns: 1fr;
+    }
+}
