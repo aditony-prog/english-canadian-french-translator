@@ -1,8 +1,13 @@
-module.exports = async function (context, req) {
-    context.res = {
-        status: 200,
-        body: {
-            message: "Translator API is alive"
-        }
-    };
-};
+const { app } = require("@azure/functions");
+
+app.http("translate", {
+    methods: ["GET", "POST"],
+    authLevel: "anonymous",
+    handler: async (request, context) => {
+        return {
+            jsonBody: {
+                message: "Translator API is alive"
+            }
+        };
+    }
+});
