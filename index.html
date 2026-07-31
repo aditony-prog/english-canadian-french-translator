@@ -1,61 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>English → Canadian French Translator</title>
+<title>English → Canadian French Localization Assistant</title>
 
 <style>
 
 body{
-    font-family:Segoe UI,Arial,sans-serif;
+    font-family: Segoe UI, Arial, sans-serif;
     background:#f5f6f8;
-    padding:40px;
+    margin:0;
+    padding:30px;
 }
 
 .container{
-    max-width:900px;
+    max-width:1400px;
     margin:auto;
-    background:#fff;
-    border-radius:12px;
-    padding:30px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.header{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 textarea{
     width:100%;
     min-height:180px;
     padding:12px;
-    font-size:16px;
     box-sizing:border-box;
+    font-size:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
 }
 
-.controls{
-    margin-top:15px;
-}
-
-input[type="number"]{
-    padding:8px;
-    width:120px;
+input, select{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
 }
 
 button{
-    background:#0078d4;
-    color:#fff;
     border:none;
-    padding:12px 24px;
+    padding:10px 18px;
+    background:#0078d4;
+    color:white;
     border-radius:6px;
     cursor:pointer;
-    margin-right:10px;
+    margin-right:8px;
+    margin-top:8px;
+}
+
+button:hover{
+    background:#0064b7;
+}
+
+.secondary{
+    background:#666;
+}
+
+.success{
+    background:#107c10;
 }
 
 .output{
-    margin-top:20px;
+    margin-top:15px;
     border:1px solid #ddd;
+    padding:15px;
+    min-height:140px;
+    border-radius:6px;
     background:#fafafa;
-    padding:16px;
-    min-height:120px;
+    white-space:pre-wrap;
 }
 
 .metric{
@@ -64,25 +96,138 @@ button{
 }
 
 .pass{
-    color:green;
+    color:#107c10;
 }
 
 .fail{
-    color:red;
+    color:#c50f1f;
 }
 
-.warning{
-    color:#d97706;
+.section-title{
+    margin-top:20px;
+    margin-bottom:10px;
+    font-size:18px;
+    font-weight:600;
+}
+
+.card{
+    border:1px solid #ddd;
+    border-radius:6px;
+    padding:10px;
+    margin-bottom:8px;
+    background:#fafafa;
+}
+
+.small{
+    font-size:12px;
+    color:#666;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.row-item{
+    flex:1;
+    min-width:180px;
+}
+
+.favorite-btn{
+    background:#ffb900;
+    color:black;
+}
+
+.export-btn{
+    background:#0063b1;
+}
+
+.glossary-box{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.history-scroll{
+    max-height:350px;
+    overflow:auto;
+}
+
+@media(max-width:900px){
+
+.grid{
+    grid-template-columns:1fr;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>English → Canadian French Translator</h1>
+<div class="header">
+
+<h1>English → Canadian French Localization Assistant</h1>
+
+<p>
+Built for marketing, web content, UX copy, email subjects, SEO metadata and localization workflows.
+</p>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+
+<div class="row">
+
+<div class="row-item">
+
+<label>Content Type</label>
+
+<select id="contentType" onchange="updatePreset()">
+
+<option value="15">Website Button (15)</option>
+<option value="20">Mobile CTA (20)</option>
+<option value="25">Navigation (25)</option>
+<option value="50">Email Subject (50)</option>
+<option value="60">Headline (60)</option>
+<option value="60">Meta Title (60)</option>
+<option value="160">Meta Description (160)</option>
+<option value="custom">Custom</option>
+
+</select>
+
+</div>
+
+<div class="row-item">
+
+<label>Character Limit</label>
+
+<input
+id="charLimit"
+type="number"
+value="15"
+/>
+
+</div>
+
+</div>
+
+<div class="section-title">
+English Source
+</div>
 
 <textarea
 id="sourceText"
@@ -95,141 +240,324 @@ English Characters:
 <span id="englishCount">0</span>
 </div>
 
-<div class="controls">
+<button onclick="translateText()">
+Translate
+</button>
 
-<label>
-Character Limit:
-</label>
+<button onclick="copyTranslation()" class="secondary">
+Copy
+</button>
+
+<button onclick="saveFavorite()" class="favorite-btn">
+★ Favorite
+</button>
+
+<div class="section-title">
+Canadian French Translation
+</div>
+
+<div class="output" id="result">
+
+Translation will appear here.
+
+</div>
+
+<div class="metric">
+
+French Characters:
+<span id="frenchCount">0</span>
+
+</div>
+
+<div class="metric" id="status">
+
+Status: Waiting
+
+</div>
+
+</div>
+
+<div>
+
+<div class="panel">
+
+<div class="section-title">
+Translation History
+</div>
+
+<button
+onclick="exportHistory()"
+class="export-btn">
+
+Export CSV
+
+</button>
+
+<div
+id="history"
+class="history-scroll">
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="section-title">
+Favorites
+</div>
+
+<div id="favorites">
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="section-title">
+Marketing Glossary
+</div>
+
+<div class="glossary-box">
 
 <input
-type="number"
-id="charLimit"
-value="15"
-min="1"
+id="glossaryEnglish"
+placeholder="English Term"
 />
+
+<input
+id="glossaryFrench"
+placeholder="French Term"
+/>
+
+<button onclick="addGlossary()">
+
+Save Glossary Entry
+
+</button>
 
 </div>
 
 <br>
 
-<button onclick="translateText()">
-Translate
-</button>
+<div id="glossaryList">
 
-<button onclick="copyTranslation()">
-Copy Translation
-</button>
-
-<div class="output" id="result">
-Translation will appear here.
 </div>
 
-<div class="metric">
-French Characters:
-<span id="frenchCount">0</span>
 </div>
 
-<div class="metric" id="status">
-Status: Waiting
+</div>
+
 </div>
 
 </div>
 
 <script>
 
-function updateEnglishCount() {
+const STORAGE_HISTORY = "translator_history";
+const STORAGE_FAVORITES = "translator_favorites";
+const STORAGE_GLOSSARY = "translator_glossary";
 
-    const text =
-        document.getElementById("sourceText").value;
-
-    document.getElementById("englishCount").innerText =
-        text.length;
+function getHistory(){
+    return JSON.parse(
+        localStorage.getItem(STORAGE_HISTORY) || "[]"
+    );
 }
 
-async function translateText() {
+function getFavorites(){
+    return JSON.parse(
+        localStorage.getItem(STORAGE_FAVORITES) || "[]"
+    );
+}
 
-    const text =
-        document.getElementById("sourceText").value;
+function getGlossary(){
+    return JSON.parse(
+        localStorage.getItem(STORAGE_GLOSSARY) || "[]"
+    );
+}
 
-    if (!text.trim()) return;
+function saveHistory(data){
+    localStorage.setItem(
+        STORAGE_HISTORY,
+        JSON.stringify(data)
+    );
+}
 
-    document.getElementById("result").innerText =
-        "Translating...";
+function saveFavorites(data){
+    localStorage.setItem(
+        STORAGE_FAVORITES,
+        JSON.stringify(data)
+    );
+}
 
-    try {
+function saveGlossaryList(data){
+    localStorage.setItem(
+        STORAGE_GLOSSARY,
+        JSON.stringify(data)
+    );
+}
 
-        const response =
-            await fetch("/api/translate", {
-                method: "POST",
-                headers: {
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify({
-                    text:text
-                })
-            });
+function updatePreset(){
 
-        const data =
-            await response.json();
+    const value =
+        document.getElementById("contentType").value;
 
-        document.getElementById("result").innerText =
-            data.translation;
+    if(value !== "custom"){
 
-        evaluateTranslation(data.translation);
-
-    } catch {
-
-        document.getElementById("result").innerText =
-            "Translation failed.";
+        document.getElementById(
+            "charLimit"
+        ).value = value;
 
     }
 }
 
-function evaluateTranslation(translatedText){
+function updateEnglishCount(){
+
+    const text =
+        document.getElementById(
+            "sourceText"
+        ).value;
+
+    document.getElementById(
+        "englishCount"
+    ).innerText = text.length;
+}
+
+async function translateText(){
+
+    const sourceText =
+        document.getElementById(
+            "sourceText"
+        ).value;
+
+    if(!sourceText.trim()) return;
+
+    document.getElementById(
+        "result"
+    ).innerText = "Translating...";
+
+    try{
+
+        const response =
+        await fetch("/api/translate",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                text:sourceText
+            })
+        });
+
+        const data =
+            await response.json();
+
+        let translated =
+            data.translation;
+
+        translated =
+            applyGlossary(
+                translated
+            );
+
+        document.getElementById(
+            "result"
+        ).innerText = translated;
+
+        evaluateTranslation(
+            translated
+        );
+
+        addHistory(
+            sourceText,
+            translated
+        );
+
+    }catch(err){
+
+        document.getElementById(
+            "result"
+        ).innerText =
+        "Translation failed.";
+
+    }
+}
+
+function evaluateTranslation(text){
 
     const count =
-        translatedText.length;
+        text.length;
+
+    document.getElementById(
+        "frenchCount"
+    ).innerText = count;
 
     const limit =
         parseInt(
-            document.getElementById("charLimit").value
+            document.getElementById(
+                "charLimit"
+            ).value
         );
 
-    document.getElementById("frenchCount").innerText =
-        count;
-
     const status =
-        document.getElementById("status");
+        document.getElementById(
+            "status"
+        );
 
     if(count <= limit){
 
         status.innerHTML =
-            `✅ PASS (${count}/${limit})`;
+        `✅ PASS (${count}/${limit})`;
 
         status.className =
-            "metric pass";
+        "metric pass";
 
-    } else {
+    }else{
 
         status.innerHTML =
-            `❌ FAIL (${count}/${limit}) - Over by ${count-limit}`;
+        `❌ FAIL (${count}/${limit}) • Over by ${count-limit}`;
 
         status.className =
-            "metric fail";
+        "metric fail";
+
     }
 }
 
 function copyTranslation(){
 
-    const text =
-        document.getElementById("result").innerText;
+    navigator.clipboard.writeText(
+        document.getElementById(
+            "result"
+        ).innerText
+    );
 
-    navigator.clipboard.writeText(text);
-
-    alert("Translation copied!");
+    alert(
+        "Translation copied."
+    );
 }
 
-</script>
+function addHistory(
+    english,
+    french
+){
 
-</body>
-</html>
+    const history =
+        getHistory();
+
+    history.unshift({
+        english,
+        french,
+        timestamp:
+        new Date().toLocaleString()
+    });
+
+    const trimmed =
+        history.slice(0,25);
+
+    saveHistory(trimmed);
+
+    renderHistory();
+}
+
+function
