@@ -17,16 +17,13 @@
             English ⇄ French (Canada)
         </p>
 
-        <div class="actions top-actions">
-            <button id="swapBtn">⇄ Swap Languages</button>
-        </div>
-
         <div class="translator-grid">
 
             <div class="panel">
 
                 <div class="panel-header">
                     <h3 id="sourceLanguage">English</h3>
+                    <button id="copyInputBtn">Copy</button>
                 </div>
 
                 <textarea
@@ -61,10 +58,27 @@
 
         </div>
 
+        <div class="actions toolbar">
+
+            <button id="swapBtn">
+                ⇄ Swap Languages
+            </button>
+
+            <button id="translateBtn">
+                Translate
+            </button>
+
+            <button id="clearBtn">
+                Clear Input
+            </button>
+
+        </div>
+
         <div class="settings-grid">
 
             <div class="quality-card">
-                <h3>Maximum Output Length</h3>
+
+                <h3>Character Limit</h3>
 
                 <select id="maxLength">
                     <option>Unlimited</option>
@@ -74,11 +88,12 @@
                     <option>100</option>
                     <option>150</option>
                 </select>
+
             </div>
 
             <div class="quality-card">
 
-                <h3>Quality Score</h3>
+                <h3>Translation Confidence Score</h3>
 
                 <div id="qualityScore">
                     --%
@@ -96,7 +111,7 @@
 
             <div class="quality-card">
 
-                <h3>Protected Terms</h3>
+                <h3>Do Not Translate</h3>
 
                 <textarea
                     id="protectedTerms"
@@ -104,18 +119,6 @@
                 ></textarea>
 
             </div>
-
-        </div>
-
-        <div class="actions">
-
-            <button id="translateBtn">
-                Translate
-            </button>
-
-            <button id="clearBtn">
-                Clear Input
-            </button>
 
         </div>
 
