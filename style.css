@@ -80,7 +80,7 @@ h1 {
 
 #protectedTerms {
     width: 100%;
-    min-height: 60px;
+    min-height: 100px;
     resize: none;
     border: none;
     outline: none;
@@ -100,13 +100,12 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
     flex-wrap: wrap;
 }
 
 .toolbar {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 16px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -125,7 +124,8 @@ button:hover {
     background: var(--primary-hover);
 }
 
-#copyBtn {
+#copyBtn,
+#copyInputBtn {
     padding: 6px 12px;
     font-size: 12px;
 }
@@ -141,13 +141,14 @@ button:hover {
     background: white;
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 12px;
+    padding: 18px;
+    min-height: 170px;
     box-shadow: 0 4px 15px rgba(0,0,0,.05);
 }
 
 .quality-card h3 {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     font-size: 0.95rem;
 }
 
@@ -178,7 +179,7 @@ select {
 .quality-bar-fill {
     width: 95%;
     height: 100%;
-    background: linear-gradient(90deg, #22c55e, #16a34a);
+    background: linear-gradient(90deg,#22c55e,#16a34a);
 }
 
 #qualityLabel {
@@ -196,6 +197,7 @@ select {
 }
 
 @media (max-width: 900px) {
+
     .translator-grid {
         grid-template-columns: 1fr;
     }
