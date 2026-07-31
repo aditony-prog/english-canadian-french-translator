@@ -6,6 +6,7 @@ const outputCount = document.getElementById("outputCount");
 
 const clearBtn = document.getElementById("clearBtn");
 const copyBtn = document.getElementById("copyBtn");
+const copyInputBtn = document.getElementById("copyInputBtn");
 const translateBtn = document.getElementById("translateBtn");
 
 inputText.addEventListener("input", () => {
@@ -13,6 +14,7 @@ inputText.addEventListener("input", () => {
 });
 
 clearBtn.addEventListener("click", () => {
+
     inputText.value = "";
     outputText.value = "";
 
@@ -25,11 +27,32 @@ clearBtn.addEventListener("click", () => {
 });
 
 copyBtn.addEventListener("click", async () => {
+
+    if (!outputText.value) return;
+
     await navigator.clipboard.writeText(outputText.value);
-    alert("Translation copied.");
+
+    copyBtn.textContent = "Copied!";
+
+    setTimeout(() => {
+        copyBtn.textContent = "Copy";
+    }, 1500);
 });
 
-translateBtn.addEventListener("click", () => {
+copyInputBtn.addEventListener("click", async () => {
+
+    if (!inputText.value) return;
+
+    await navigator.clipboard.writeText(inputText.value);
+
+    copyInputBtn.textContent = "Copied!";
+
+    setTimeout(() => {
+        copyInputBtn.textContent = "Copy";
+    }, 1500);
+});
+
+translateBtn.addEventListener("click", async () => {
 
     const text = inputText.value.trim();
 
@@ -38,17 +61,50 @@ translateBtn.addEventListener("click", () => {
         return;
     }
 
-    // Placeholder translation until Azure is connected
-    outputText.value =
-        "Azure Translator will be connected in the next step.";
+    translateBtn.disabled = true;
+    translateBtn.textContent = "Translating...";
 
-    outputCount.textContent = outputText.value.length;
+    try {
 
-    const quality = 95;
+        const response = await fetch("/api/translate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                text: text,
+                from: "en",
+                to: "fr-CA"
+            })
+        });
 
-    document.getElementById("qualityScore").textContent =
-        quality + "%";
+        if (!response.ok) {
+            throw new Error("Translation request failed");
+        }
 
-    document.getElementById("qualityLabel").textContent =
-        "Excellent";
+        const result = await response.json();
+
+        const translated =
+            result[0].translations[0].text;
+
+        outputText.value = translated;
+
+        outputCount.textContent =
+            translated.length;
+
+        document.getElementById("qualityScore")
+            .textContent = "95%";
+
+        document.getElementById("qualityLabel")
+            .textContent = "Excellent";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Translation failed.");
+    }
+
+    translateBtn.disabled = false;
+    translateBtn.textContent = "Translate";
 });
