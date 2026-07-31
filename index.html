@@ -1,105 +1,186 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canadian French Translator</title>
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --background: #f3f6fb;
+    --card: #ffffff;
+    --border: #dbe2ea;
+    --text: #1f2937;
+    --subtle: #6b7280;
+    --success: #16a34a;
+}
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+* {
+    box-sizing: border-box;
+}
 
-    <div class="container">
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 20px 24px;
+}
 
-        <h1>Canadian French Translator</h1>
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-        <p class="subtitle">
-            English ⇄ French (CA)
-        </p>
+h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 0;
+}
 
-        <div class="actions" style="margin-bottom:20px;">
-            <button id="swapBtn">⇄ Swap Languages</button>
-        </div>
+.subtitle {
+    text-align: center;
+    color: var(--subtle);
+    margin: 4px 0 16px;
+}
 
-        <div class="translator-grid">
+.translator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
-            <div class="panel">
+.panel {
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 20px rgba(0,0,0,.05);
+    overflow: hidden;
+}
 
-                <div class="panel-header">
-                    <h3 id="sourceLanguage">English</h3>
-                </div>
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    background: #fafcff;
+}
 
-                <textarea
-                    id="inputText"
-                    placeholder="Enter text..."
-                ></textarea>
+.panel-header h3 {
+    margin: 0;
+    font-size: 1rem;
+}
 
-                <div class="counter">
-                    Characters: <span id="inputCount">0</span>
-                </div>
+textarea {
+    width: 100%;
+    min-height: 220px;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    background: white;
+}
 
-            </div>
+.counter {
+    padding: 10px 18px;
+    border-top: 1px solid var(--border);
+    color: var(--subtle);
+    font-size: .9rem;
+}
 
-            <div class="panel">
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
 
-                <div class="panel-header">
-                    <h3 id="targetLanguage">French (CA)</h3>
-                    <button id="copyBtn">Copy</button>
-                </div>
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
 
-                <textarea
-                    id="outputText"
-                    readonly
-                    placeholder="Translation will appear here..."
-                ></textarea>
+button:hover {
+    background: var(--primary-hover);
+}
 
-                <div class="counter">
-                    Characters: <span id="outputCount">0</span>
-                </div>
+#copyBtn {
+    padding: 8px 14px;
+    font-size: 13px;
+}
 
-            </div>
+select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    min-width: 180px;
+}
 
-        </div>
+.quality-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
 
-        <div class="quality-card">
+.quality-card h3 {
+    margin-top: 0;
+}
 
-            <h3>Translation Settings</h3>
+#qualityScore {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--success);
+    text-align: center;
+}
 
-            <div style="margin-top:20px;">
+.quality-bar {
+    max-width: 300px;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    margin: 10px auto;
+    overflow: hidden;
+}
 
-                <label for="maxLength">
-                    Maximum Output Length
-                </label>
+.quality-bar-fill {
+    width: 95%;
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
 
-                <br><br>
+#qualityLabel {
+    text-align: center;
+    color: var(--subtle);
+    margin-bottom: 0;
+}
 
-                <select id="maxLength">
-                    <option>Unlimited</option>
-                    <option>25</option>
-                    <option>50</option>
-                    <option>75</option>
-                    <option>100</option>
-                    <option>150</option>
-                </select>
+#protectedTerms {
+    width: 100%;
+    min-height: 90px;
+}
 
-            </div>
+.footer {
+    text-align: center;
+    color: var(--subtle);
+    margin-top: 15px;
+    font-size: .85rem;
+}
 
-        </div>
+@media (max-width: 900px) {
+    .translator-grid {
+        grid-template-columns: 1fr;
+    }
 
-        <div class="quality-card">
-
-            <h3>Protected Terms</h3>
-
-            <p>
-                Words that should never be translated.
-            </p>
-
-            <textarea
-                id="protectedTerms"
-                style="min-height:150px;"
-                placeholder="Microsoft Copilot&#10;Power BI&#10;Teams"
-            ></textarea>
-
-        </div>
-
-        <div class="actions">
+    textarea {
+        min-height: 180px;
+    }
+}
