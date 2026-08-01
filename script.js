@@ -211,6 +211,36 @@ clearBtn.addEventListener("click", () => {
         "qualityLabel"
     ).textContent =
         "Awaiting Translation";
+
+    document.getElementById(
+        "protectedTermsScore"
+    ).textContent =
+        "--";
+
+    document.getElementById(
+        "lengthComplianceScore"
+    ).textContent =
+        "--";
+
+    document.getElementById(
+        "completenessScore"
+    ).textContent =
+        "--";
+
+    document.getElementById(
+        "reviewRequired"
+    ).textContent =
+        "--";
+
+    const qualityBar =
+        document.querySelector(
+            ".quality-bar-fill"
+        );
+
+    if (qualityBar) {
+        qualityBar.style.width = "0%";
+    }
+
 });
 
 /*
@@ -335,44 +365,88 @@ translateBtn.addEventListener(
                 result.translation.length;
 
             /*
-                TRANSLATION QUALITY SCORE
+                QUALITY DASHBOARD
             */
 
-            let qualityScore = 0;
+            let protectedTermsScore = 100;
+            let lengthComplianceScore = 100;
+            let completenessScore = 100;
 
-            // Translation success
-            qualityScore += 40;
+            const protectedTermsUsed =
+                protectedTerms.filter(term =>
+                    text.includes(term)
+                );
 
-            // Protected terms support
-            qualityScore += 30;
+            const protectedTermsPreserved =
+                protectedTermsUsed.filter(term =>
+                    result.translation.includes(term)
+                );
 
-            // Length compliance
-            if (
-                !result.maxLength ||
-                result.withinLimit
-            ) {
+            if (protectedTermsUsed.length > 0) {
 
-                qualityScore += 30;
+                protectedTermsScore =
+                    Math.round(
+                        (
+                            protectedTermsPreserved.length /
+                            protectedTermsUsed.length
+                        ) * 100
+                    );
 
             }
+
+            if (
+                result.maxLength &&
+                !result.withinLimit
+            ) {
+
+                lengthComplianceScore = 50;
+
+            }
+
+            const sourceLength =
+                text.length;
+
+            const translatedLength =
+                result.translation.length;
+
+            const lengthRatio =
+                translatedLength /
+                sourceLength;
+
+            if (lengthRatio < 0.5) {
+
+                completenessScore = 60;
+
+            } else if (lengthRatio < 0.7) {
+
+                completenessScore = 80;
+
+            }
+
+            const qualityScore =
+                Math.round(
+                    (
+                        protectedTermsScore * 0.4 +
+                        lengthComplianceScore * 0.3 +
+                        completenessScore * 0.3
+                    )
+                );
 
             let qualityRating =
                 "Excellent";
 
-            if (
-                qualityScore < 90
-            ) {
+            if (qualityScore < 90) {
 
                 qualityRating =
                     "Good";
+
             }
 
-            if (
-                qualityScore < 80
-            ) {
+            if (qualityScore < 80) {
 
                 qualityRating =
                     "Needs Review";
+
             }
 
             document.getElementById(
@@ -380,36 +454,62 @@ translateBtn.addEventListener(
             ).textContent =
                 `${qualityScore}%`;
 
-            /*
-                STATUS MESSAGE
-            */
+            document.getElementById(
+                "protectedTermsScore"
+            ).textContent =
+                `${protectedTermsScore}%`;
 
-            if (
-                result.optimized
-            ) {
+            document.getElementById(
+                "lengthComplianceScore"
+            ).textContent =
+                `${lengthComplianceScore}%`;
 
-                document.getElementById(
-                    "qualityLabel"
-                ).textContent =
-                    `✓ Optimized from ${result.originalLength} → ${result.finalLength} characters`;
+            document.getElementById(
+                "completenessScore"
+            ).textContent =
+                `${completenessScore}%`;
 
-            } else if (
-                result.maxLength
-            ) {
+            document.getElementById(
+                "reviewRequired"
+            ).textContent =
+                qualityScore < 80
+                    ? "Yes"
+                    : "No";
 
-                document.getElementById(
-                    "qualityLabel"
-                ).textContent =
-                    `✓ Within ${result.maxLength}-character limit`;
+            const qualityBar =
+                document.querySelector(
+                    ".quality-bar-fill"
+                );
 
-            } else {
+            if (qualityBar) {
 
-                document.getElementById(
-                    "qualityLabel"
-                ).textContent =
-                    `✓ ${qualityRating}`;
+                qualityBar.style.width =
+                    `${qualityScore}%`;
 
             }
+
+            let statusMessage =
+                qualityRating;
+
+            if (result.optimized) {
+
+                statusMessage =
+                    `${qualityRating} • Optimized from ${result.originalLength} to ${result.finalLength} characters`;
+
+            } else if (
+                result.maxLength &&
+                result.withinLimit
+            ) {
+
+                statusMessage =
+                    `${qualityRating} • Within ${result.maxLength}-character limit`;
+
+            }
+
+            document.getElementById(
+                "qualityLabel"
+            ).textContent =
+                statusMessage;
 
         } catch (error) {
 
