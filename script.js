@@ -334,51 +334,88 @@ translateBtn.addEventListener(
             outputCount.textContent =
                 result.translation.length;
 
-            /*
-                TRANSLATION QUALITY SCORE
-            */
+/*
+    TRANSLATION QUALITY DASHBOARD
+*/
 
-            let qualityScore = 0;
+let protectedTermsScore = 100;
+let lengthComplianceScore = 100;
+let completenessScore = 100;
 
-            // Translation success
-            qualityScore += 40;
+/*
+    DO NOT TRANSLATE COMPLIANCE
+*/
+const protectedTermsUsed =
+    protectedTerms.filter(term =>
+        text.includes(term)
+    );
 
-            // Protected terms support
-            qualityScore += 30;
+const protectedTermsPreserved =
+    protectedTermsUsed.filter(term =>
+        result.translation.includes(term)
+    );
 
-            // Length compliance
-            if (
-                !result.maxLength ||
-                result.withinLimit
-            ) {
+if (protectedTermsUsed.length > 0) {
+    protectedTermsScore = Math.round(
+        (
+            protectedTermsPreserved.length /
+            protectedTermsUsed.length
+        ) * 100
+    );
+}
 
-                qualityScore += 30;
+/*
+    LENGTH COMPLIANCE
+*/
+if (
+    result.maxLength &&
+    !result.withinLimit
+) {
+    lengthComplianceScore = 50;
+}
 
-            }
+/*
+    COMPLETENESS CHECK
+*/
+const sourceLength =
+    text.length;
 
-            let qualityRating =
-                "Excellent";
+const translatedLength =
+    result.translation.length;
 
-            if (
-                qualityScore < 90
-            ) {
+const lengthRatio =
+    translatedLength /
+    sourceLength;
 
-                qualityRating =
-                    "Good";
-            }
+if (lengthRatio < 0.50) {
+    completenessScore = 60;
+} else if (lengthRatio < 0.70) {
+    completenessScore = 80;
+}
 
-            if (
-                qualityScore < 80
-            ) {
+/*
+    OVERALL QUALITY SCORE
+*/
+const qualityScore = Math.round(
+    (
+        protectedTermsScore * 0.40 +
+        lengthComplianceScore * 0.30 +
+        completenessScore * 0.30
+    )
+);
 
-                qualityRating =
-                    "Needs Review";
-            }
+let qualityRating =
+    "Excellent";
 
-            document.getElementById(
-                "qualityScore"
-            ).textContent =
-                `${qualityScore}%`;
+if (qualityScore < 90) {
+    qualityRating =
+        "Good";
+}
+
+if (qualityScore < 80) {
+    qualityRating =
+        "Needs Review";
+}
 
             /*
                 STATUS MESSAGE
