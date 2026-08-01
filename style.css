@@ -149,7 +149,6 @@ h1 {
 
 button {
     background: var(--primary);
-
     color: white;
 
     border: none;
@@ -200,6 +199,19 @@ button:hover {
     color: var(--header-blue);
 }
 
+#maxLength {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+#maxLength:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
 select {
     width: 100%;
 
@@ -248,6 +260,12 @@ select {
     color: var(--subtle);
 
     margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    min-height: 34px;
 }
 
 .footer {
@@ -261,7 +279,7 @@ select {
 }
 
 /* ==========================================
-   MAX OUTPUT LENGTH PRESET CHIPS
+   OUTPUT LENGTH PRESET CHIPS
 ========================================== */
 
 .preset-btn {
@@ -296,27 +314,10 @@ select {
     outline: none;
 }
 
-/* Highlight selected preset */
-
 .preset-btn.active {
     background: #dce9f8;
     color: var(--header-blue);
     border-color: #aac5e8;
-}
-
-/* Max Length Input */
-
-#maxLength {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    font-size: 14px;
-}
-
-#maxLength:focus {
-    outline: none;
-    border-color: var(--primary);
 }
 
 @media (max-width: 900px) {
