@@ -30,6 +30,10 @@ body {
     margin: 0 auto;
 }
 
+/* ==========================================
+   HEADER
+========================================== */
+
 .header {
     display: flex;
     align-items: center;
@@ -67,6 +71,10 @@ h1 {
     margin: 4px 0 0;
 }
 
+/* ==========================================
+   TRANSLATOR PANELS
+========================================== */
+
 .translator-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -77,7 +85,7 @@ h1 {
     background: white;
     border-radius: 14px;
     border: 1px solid var(--border);
-    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
     overflow: hidden;
 }
 
@@ -113,20 +121,6 @@ h1 {
     line-height: 1.4;
 }
 
-#protectedTerms {
-    width: 100%;
-    min-height: 100px;
-
-    resize: none;
-
-    border: none;
-    outline: none;
-
-    padding: 12px;
-
-    font-size: 14px;
-}
-
 .counter {
     padding: 8px 15px;
     border-top: 1px solid var(--border);
@@ -134,6 +128,10 @@ h1 {
     color: var(--subtle);
     font-size: 13px;
 }
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
 
 .actions {
     display: flex;
@@ -174,6 +172,10 @@ button:hover {
     font-size: 12px;
 }
 
+/* ==========================================
+   SETTINGS GRID
+========================================== */
+
 .settings-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -187,9 +189,10 @@ button:hover {
     border-radius: 14px;
 
     padding: 18px;
-    min-height: 170px;
 
-    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    min-height: 250px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
 }
 
 .quality-card h3 {
@@ -199,11 +202,17 @@ button:hover {
     color: var(--header-blue);
 }
 
+/* ==========================================
+   MAX LENGTH
+========================================== */
+
 #maxLength {
     width: 100%;
     padding: 10px;
+
     border-radius: 6px;
     border: 1px solid var(--border);
+
     font-size: 14px;
 }
 
@@ -212,22 +221,40 @@ button:hover {
     border-color: var(--primary);
 }
 
-select {
+/* ==========================================
+   DO NOT TRANSLATE
+========================================== */
+
+#protectedTerms {
     width: 100%;
+    min-height: 140px;
 
-    padding: 8px;
+    resize: none;
 
-    border-radius: 8px;
     border: 1px solid var(--border);
+    border-radius: 6px;
+
+    outline: none;
+
+    padding: 10px;
+
+    font-size: 14px;
+    line-height: 1.5;
 }
+
+/* ==========================================
+   TRANSLATION QUALITY DASHBOARD
+========================================== */
 
 #qualityScore {
     text-align: center;
 
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2.25rem;
+    font-weight: 700;
 
     color: var(--success);
+
+    margin-bottom: 10px;
 }
 
 .quality-bar {
@@ -240,11 +267,12 @@ select {
 
     overflow: hidden;
 
-    margin: 8px 0;
+    margin-bottom: 12px;
 }
 
 .quality-bar-fill {
-    width: 95%;
+    width: 0%;
+
     height: 100%;
 
     background: linear-gradient(
@@ -252,6 +280,8 @@ select {
         #14b85e,
         #00a651
     );
+
+    transition: width .3s ease;
 }
 
 #qualityLabel {
@@ -259,27 +289,43 @@ select {
 
     color: var(--subtle);
 
-    margin: 0;
+    margin-bottom: 16px;
 
     font-size: 12px;
-
     line-height: 1.4;
-
-    min-height: 34px;
-}
-
-.footer {
-    text-align: center;
-
-    margin-top: 10px;
-
-    color: var(--subtle);
-
-    font-size: 12px;
 }
 
 /* ==========================================
-   OUTPUT LENGTH PRESET CHIPS
+   QUALITY METRICS
+========================================== */
+
+.quality-metrics {
+    margin-top: 12px;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 0;
+
+    border-top: 1px solid #edf2f7;
+}
+
+.metric-label {
+    color: var(--subtle);
+    font-size: 13px;
+}
+
+.metric-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ==========================================
+   PRESET BUTTONS
 ========================================== */
 
 .preset-btn {
@@ -310,15 +356,29 @@ select {
     background: #dde8f2;
 }
 
-.preset-btn:focus {
-    outline: none;
-}
-
 .preset-btn.active {
     background: #dce9f8;
     color: var(--header-blue);
     border-color: #aac5e8;
 }
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer {
+    text-align: center;
+
+    margin-top: 10px;
+
+    color: var(--subtle);
+
+    font-size: 12px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
 
 @media (max-width: 900px) {
 
