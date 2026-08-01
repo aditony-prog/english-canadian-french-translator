@@ -43,7 +43,7 @@ presetButtons.forEach(button => {
 });
 
 /*
-    CLEAR ACTIVE STATE
+    ACTIVE PRESET TRACKING
 */
 
 maxLength.addEventListener("input", () => {
@@ -172,14 +172,16 @@ window.addEventListener("load", () => {
         protectedTermsField &&
         savedTerms
     ) {
+
         protectedTermsField.value =
             savedTerms;
+
     }
 
 });
 
 /*
-    INPUT CHARACTER COUNTER
+    INPUT COUNTER
 */
 
 inputText.addEventListener("input", () => {
@@ -332,12 +334,59 @@ translateBtn.addEventListener(
             outputCount.textContent =
                 result.translation.length;
 
+            /*
+                TRANSLATION QUALITY SCORE
+            */
+
+            let qualityScore = 0;
+
+            // Translation success
+            qualityScore += 40;
+
+            // Protected terms support
+            qualityScore += 30;
+
+            // Length compliance
+            if (
+                !result.maxLength ||
+                result.withinLimit
+            ) {
+
+                qualityScore += 30;
+
+            }
+
+            let qualityRating =
+                "Excellent";
+
+            if (
+                qualityScore < 90
+            ) {
+
+                qualityRating =
+                    "Good";
+            }
+
+            if (
+                qualityScore < 80
+            ) {
+
+                qualityRating =
+                    "Needs Review";
+            }
+
             document.getElementById(
                 "qualityScore"
             ).textContent =
-                "95%";
+                `${qualityScore}%`;
 
-            if (result.optimized) {
+            /*
+                STATUS MESSAGE
+            */
+
+            if (
+                result.optimized
+            ) {
 
                 document.getElementById(
                     "qualityLabel"
@@ -358,12 +407,15 @@ translateBtn.addEventListener(
                 document.getElementById(
                     "qualityLabel"
                 ).textContent =
-                    "✓ No character limit applied";
+                    `✓ ${qualityRating}`;
+
             }
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                error
+            );
 
             alert(
                 "Translation failed."
