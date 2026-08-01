@@ -29,10 +29,59 @@ presetButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
+        presetButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
         maxLength.value =
             button.dataset.length;
 
     });
+
+});
+
+/*
+    CLEAR ACTIVE STATE
+    WHEN USER ENTERS A CUSTOM VALUE
+*/
+
+maxLength.addEventListener("input", () => {
+
+    const currentValue =
+        maxLength.value.trim();
+
+    let matchingPreset = false;
+
+    presetButtons.forEach(button => {
+
+        if (
+            button.dataset.length ===
+            currentValue
+        ) {
+
+            matchingPreset = true;
+
+            button.classList.add("active");
+
+        } else {
+
+            button.classList.remove("active");
+
+        }
+
+    });
+
+    if (!matchingPreset) {
+
+        presetButtons.forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+    }
 
 });
 
@@ -126,6 +175,7 @@ window.addEventListener("load", () => {
         protectedTermsField.value =
             savedTerms;
     }
+
 });
 
 /*
