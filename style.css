@@ -260,6 +260,42 @@ select {
     font-size: 12px;
 }
 
+/* ==========================================
+   OUTPUT LENGTH PRESET CHIPS
+========================================== */
+
+.preset-btn {
+    background: #f3f6f9;
+    color: var(--subtle);
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    padding: 3px 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background: #eaf1f7;
+    border-color: #c8d7e6;
+}
+
+.preset-btn:active {
+    background: #dde8f2;
+}
+
+.preset-btn:focus {
+    outline: none;
+}
+
 @media (max-width: 900px) {
 
     .header {
