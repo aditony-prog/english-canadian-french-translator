@@ -334,88 +334,51 @@ translateBtn.addEventListener(
             outputCount.textContent =
                 result.translation.length;
 
-/*
-    TRANSLATION QUALITY DASHBOARD
-*/
+            /*
+                TRANSLATION QUALITY SCORE
+            */
 
-let protectedTermsScore = 100;
-let lengthComplianceScore = 100;
-let completenessScore = 100;
+            let qualityScore = 0;
 
-/*
-    DO NOT TRANSLATE COMPLIANCE
-*/
-const protectedTermsUsed =
-    protectedTerms.filter(term =>
-        text.includes(term)
-    );
+            // Translation success
+            qualityScore += 40;
 
-const protectedTermsPreserved =
-    protectedTermsUsed.filter(term =>
-        result.translation.includes(term)
-    );
+            // Protected terms support
+            qualityScore += 30;
 
-if (protectedTermsUsed.length > 0) {
-    protectedTermsScore = Math.round(
-        (
-            protectedTermsPreserved.length /
-            protectedTermsUsed.length
-        ) * 100
-    );
-}
+            // Length compliance
+            if (
+                !result.maxLength ||
+                result.withinLimit
+            ) {
 
-/*
-    LENGTH COMPLIANCE
-*/
-if (
-    result.maxLength &&
-    !result.withinLimit
-) {
-    lengthComplianceScore = 50;
-}
+                qualityScore += 30;
 
-/*
-    COMPLETENESS CHECK
-*/
-const sourceLength =
-    text.length;
+            }
 
-const translatedLength =
-    result.translation.length;
+            let qualityRating =
+                "Excellent";
 
-const lengthRatio =
-    translatedLength /
-    sourceLength;
+            if (
+                qualityScore < 90
+            ) {
 
-if (lengthRatio < 0.50) {
-    completenessScore = 60;
-} else if (lengthRatio < 0.70) {
-    completenessScore = 80;
-}
+                qualityRating =
+                    "Good";
+            }
 
-/*
-    OVERALL QUALITY SCORE
-*/
-const qualityScore = Math.round(
-    (
-        protectedTermsScore * 0.40 +
-        lengthComplianceScore * 0.30 +
-        completenessScore * 0.30
-    )
-);
+            if (
+                qualityScore < 80
+            ) {
 
-let qualityRating =
-    "Excellent";
+                qualityRating =
+                    "Needs Review";
+            }
 
-if (qualityScore < 90) {
-    qualityRating =
-        "Good";
-}
-
-if (qualityScore < 80) {
-    qualityRating =
-        "Needs Review";
-}
+            document.getElementById(
+                "qualityScore"
+            ).textContent =
+                `${qualityScore}%`;
 
             /*
                 STATUS MESSAGE
