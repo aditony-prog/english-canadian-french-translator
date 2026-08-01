@@ -44,7 +44,6 @@ presetButtons.forEach(button => {
 
 /*
     CLEAR ACTIVE STATE
-    WHEN USER ENTERS A CUSTOM VALUE
 */
 
 maxLength.addEventListener("input", () => {
@@ -52,7 +51,8 @@ maxLength.addEventListener("input", () => {
     const currentValue =
         maxLength.value.trim();
 
-    let matchingPreset = false;
+    let matchingPreset =
+        false;
 
     presetButtons.forEach(button => {
 
@@ -240,7 +240,7 @@ copyBtn.addEventListener(
 );
 
 /*
-    COPY SOURCE TEXT
+    COPY SOURCE
 */
 
 copyInputBtn.addEventListener(
@@ -337,10 +337,29 @@ translateBtn.addEventListener(
             ).textContent =
                 "95%";
 
-            document.getElementById(
-                "qualityLabel"
-            ).textContent =
-                "Excellent";
+            if (result.optimized) {
+
+                document.getElementById(
+                    "qualityLabel"
+                ).textContent =
+                    `✓ Optimized from ${result.originalLength} → ${result.finalLength} characters`;
+
+            } else if (
+                result.maxLength
+            ) {
+
+                document.getElementById(
+                    "qualityLabel"
+                ).textContent =
+                    `✓ Within ${result.maxLength}-character limit`;
+
+            } else {
+
+                document.getElementById(
+                    "qualityLabel"
+                ).textContent =
+                    "✓ No character limit applied";
+            }
 
         } catch (error) {
 
