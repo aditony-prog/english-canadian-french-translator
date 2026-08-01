@@ -88,6 +88,8 @@
 
         <div class="settings-grid">
 
+            <!-- Maximum French Output Length -->
+
             <div class="quality-card">
 
                 <h3>
@@ -115,10 +117,71 @@
                         color: #666;
                     "
                 >
-                    Enter the maximum number of characters allowed in the final French translation.
+                    Enter the maximum number of characters allowed.
                 </p>
 
+                <div
+                    style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        margin-top: 10px;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="20"
+                    >
+                        URL (20)
+                    </button>
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="15"
+                    >
+                        Page Title (15)
+                    </button>
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="18"
+                    >
+                        Headline (18)
+                    </button>
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="30"
+                    >
+                        Subhead (30)
+                    </button>
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="50"
+                    >
+                        Meta Keywords (50)
+                    </button>
+
+                    <button
+                        type="button"
+                        class="preset-btn"
+                        data-length="160"
+                    >
+                        Meta Description (160)
+                    </button>
+
+                </div>
+
             </div>
+
+            <!-- Translation Confidence -->
 
             <div class="quality-card">
 
@@ -137,6 +200,8 @@
                 </p>
 
             </div>
+
+            <!-- Do Not Translate -->
 
             <div class="quality-card">
 
