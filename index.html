@@ -18,15 +18,11 @@
             </div>
 
             <div class="header-text">
-
-                <h1>
-                    Canadian French Translator
-                </h1>
+                <h1>Canadian French Translator</h1>
 
                 <p class="subtitle">
                     English ⇄ French (Canada)
                 </p>
-
             </div>
 
         </div>
@@ -36,15 +32,8 @@
             <div class="panel">
 
                 <div class="panel-header">
-
-                    <h3 id="sourceLanguage">
-                        English
-                    </h3>
-
-                    <button id="copyInputBtn">
-                        Copy
-                    </button>
-
+                    <h3 id="sourceLanguage">English</h3>
+                    <button id="copyInputBtn">Copy</button>
                 </div>
 
                 <textarea
@@ -53,12 +42,8 @@
                 ></textarea>
 
                 <div class="counter">
-
                     Characters:
-                    <span id="inputCount">
-                        0
-                    </span>
-
+                    <span id="inputCount">0</span>
                 </div>
 
             </div>
@@ -66,15 +51,8 @@
             <div class="panel">
 
                 <div class="panel-header">
-
-                    <h3 id="targetLanguage">
-                        French (CA)
-                    </h3>
-
-                    <button id="copyBtn">
-                        Copy
-                    </button>
-
+                    <h3 id="targetLanguage">French (CA)</h3>
+                    <button id="copyBtn">Copy</button>
                 </div>
 
                 <textarea
@@ -84,12 +62,8 @@
                 ></textarea>
 
                 <div class="counter">
-
                     Characters:
-                    <span id="outputCount">
-                        0
-                    </span>
-
+                    <span id="outputCount">0</span>
                 </div>
 
             </div>
@@ -114,67 +88,41 @@
 
         <div class="settings-grid">
 
-            <!-- CHARACTER LIMIT CARD -->
-
             <div class="quality-card">
 
                 <h3>
-                    French Content Type
+                    Maximum French Output Length
                 </h3>
-
-                <select id="contentType">
-
-                    <option value="">
-                        Custom
-                    </option>
-
-                    <option value="20">
-                        URL (20)
-                    </option>
-
-                    <option value="15">
-                        Page Title (15)
-                    </option>
-
-                    <option value="18">
-                        Headline (18)
-                    </option>
-
-                    <option value="30">
-                        Subhead (30)
-                    </option>
-
-                    <option value="50">
-                        Meta Keywords (50)
-                    </option>
-
-                    <option value="160">
-                        Meta Description (160)
-                    </option>
-
-                </select>
 
                 <input
                     type="number"
                     id="maxLength"
                     min="1"
-                    placeholder="Custom length"
+                    placeholder="Leave blank for unlimited"
                     style="
-                        width:100%;
-                        margin-top:10px;
-                        box-sizing:border-box;
+                        width: 100%;
+                        padding: 10px;
+                        border-radius: 6px;
+                        border: 1px solid #ccc;
+                        box-sizing: border-box;
                     "
                 >
 
-            </div>
+                <p
+                    style="
+                        margin-top: 10px;
+                        font-size: 12px;
+                        color: #666;
+                    "
+                >
+                    Enter the maximum number of characters allowed in the final French translation.
+                </p>
 
-            <!-- QUALITY CARD -->
+            </div>
 
             <div class="quality-card">
 
-                <h3>
-                    Translation Confidence Score
-                </h3>
+                <h3>Translation Confidence Score</h3>
 
                 <div id="qualityScore">
                     --%
@@ -190,13 +138,9 @@
 
             </div>
 
-            <!-- DO NOT TRANSLATE CARD -->
-
             <div class="quality-card">
 
-                <h3>
-                    Do Not Translate
-                </h3>
+                <h3>Do Not Translate</h3>
 
                 <textarea
                     id="protectedTerms"
