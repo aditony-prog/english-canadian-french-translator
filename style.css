@@ -261,7 +261,7 @@ select {
 }
 
 /* ==========================================
-   OUTPUT LENGTH PRESET CHIPS
+   MAX OUTPUT LENGTH PRESET CHIPS
 ========================================== */
 
 .preset-btn {
@@ -294,6 +294,29 @@ select {
 
 .preset-btn:focus {
     outline: none;
+}
+
+/* Highlight selected preset */
+
+.preset-btn.active {
+    background: #dce9f8;
+    color: var(--header-blue);
+    border-color: #aac5e8;
+}
+
+/* Max Length Input */
+
+#maxLength {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+#maxLength:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
 @media (max-width: 900px) {
