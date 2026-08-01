@@ -15,8 +15,29 @@ const translateBtn = document.getElementById("translateBtn");
 const protectedTermsField =
     document.getElementById("protectedTerms");
 
+const maxLength =
+    document.getElementById("maxLength");
+
+const presetButtons =
+    document.querySelectorAll(".preset-btn");
+
 /*
-    DO NOT TRANSLATE FUNCTIONS
+    PRESET LENGTH BUTTONS
+*/
+
+presetButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        maxLength.value =
+            button.dataset.length;
+
+    });
+
+});
+
+/*
+    DO NOT TRANSLATE
 */
 
 function getProtectedTerms() {
@@ -46,6 +67,26 @@ function applyDictionaryMarkup(text, terms) {
     });
 
     return updatedText;
+}
+
+/*
+    CHARACTER LIMIT
+*/
+
+function getCharacterLimit() {
+
+    if (!maxLength) {
+        return null;
+    }
+
+    const value =
+        maxLength.value.trim();
+
+    if (!value) {
+        return null;
+    }
+
+    return Number(value);
 }
 
 /*
@@ -88,11 +129,14 @@ window.addEventListener("load", () => {
 });
 
 /*
-    CHARACTER COUNTER
+    INPUT CHARACTER COUNTER
 */
 
 inputText.addEventListener("input", () => {
-    inputCount.textContent = inputText.value.length;
+
+    inputCount.textContent =
+        inputText.value.length;
+
 });
 
 /*
@@ -107,9 +151,13 @@ clearBtn.addEventListener("click", () => {
     inputCount.textContent = "0";
     outputCount.textContent = "0";
 
-    document.getElementById("qualityScore").textContent = "--%";
+    document.getElementById(
+        "qualityScore"
+    ).textContent = "--%";
 
-    document.getElementById("qualityLabel").textContent =
+    document.getElementById(
+        "qualityLabel"
+    ).textContent =
         "Awaiting Translation";
 });
 
@@ -117,109 +165,148 @@ clearBtn.addEventListener("click", () => {
     COPY TRANSLATION
 */
 
-copyBtn.addEventListener("click", async () => {
+copyBtn.addEventListener(
+    "click",
+    async () => {
 
-    if (!outputText.value) return;
+        if (!outputText.value) {
+            return;
+        }
 
-    await navigator.clipboard.writeText(
-        outputText.value
-    );
+        await navigator.clipboard.writeText(
+            outputText.value
+        );
 
-    copyBtn.textContent = "Copied!";
+        copyBtn.textContent =
+            "Copied!";
 
-    setTimeout(() => {
-        copyBtn.textContent = "Copy";
-    }, 1500);
-});
+        setTimeout(() => {
+
+            copyBtn.textContent =
+                "Copy";
+
+        }, 1500);
+    }
+);
 
 /*
     COPY SOURCE TEXT
 */
 
-copyInputBtn.addEventListener("click", async () => {
+copyInputBtn.addEventListener(
+    "click",
+    async () => {
 
-    if (!inputText.value) return;
+        if (!inputText.value) {
+            return;
+        }
 
-    await navigator.clipboard.writeText(
-        inputText.value
-    );
+        await navigator.clipboard.writeText(
+            inputText.value
+        );
 
-    copyInputBtn.textContent = "Copied!";
+        copyInputBtn.textContent =
+            "Copied!";
 
-    setTimeout(() => {
-        copyInputBtn.textContent = "Copy";
-    }, 1500);
-});
+        setTimeout(() => {
+
+            copyInputBtn.textContent =
+                "Copy";
+
+        }, 1500);
+    }
+);
 
 /*
     TRANSLATE
 */
 
-translateBtn.addEventListener("click", async () => {
+translateBtn.addEventListener(
+    "click",
+    async () => {
 
-    const text = inputText.value.trim();
+        const text =
+            inputText.value.trim();
 
-    if (!text) {
-        alert("Enter text first.");
-        return;
-    }
+        if (!text) {
 
-    const protectedTerms =
-        getProtectedTerms();
+            alert(
+                "Enter text first."
+            );
 
-    const processedText =
-        applyDictionaryMarkup(
-            text,
-            protectedTerms
-        );
+            return;
+        }
 
-    translateBtn.disabled = true;
-    translateBtn.textContent =
-        "Translating...";
+        const protectedTerms =
+            getProtectedTerms();
 
-    try {
+        const processedText =
+            applyDictionaryMarkup(
+                text,
+                protectedTerms
+            );
 
-        const response = await fetch(
-            FUNCTION_URL,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-                body: JSON.stringify({
-                    text: processedText
-                })
-            }
-        );
+        translateBtn.disabled =
+            true;
 
-        const result =
-            await response.json();
-
-        outputText.value =
-            result.translation;
-
-        outputCount.textContent =
-            result.translation.length;
-
-        document.getElementById(
-            "qualityScore"
-        ).textContent = "95%";
-
-        document.getElementById(
-            "qualityLabel"
-        ).textContent = "Excellent";
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Translation failed.");
-
-    } finally {
-
-        translateBtn.disabled = false;
         translateBtn.textContent =
-            "Translate";
+            "Translating...";
+
+        try {
+
+            const response =
+                await fetch(
+                    FUNCTION_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            text: processedText,
+                            maxLength:
+                                getCharacterLimit()
+                        })
+                    }
+                );
+
+            const result =
+                await response.json();
+
+            outputText.value =
+                result.translation;
+
+            outputCount.textContent =
+                result.translation.length;
+
+            document.getElementById(
+                "qualityScore"
+            ).textContent =
+                "95%";
+
+            document.getElementById(
+                "qualityLabel"
+            ).textContent =
+                "Excellent";
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Translation failed."
+            );
+
+        } finally {
+
+            translateBtn.disabled =
+                false;
+
+            translateBtn.textContent =
+                "Translate";
+        }
     }
-});
+);
