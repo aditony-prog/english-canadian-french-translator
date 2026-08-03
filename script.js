@@ -457,10 +457,13 @@ translateBtn.addEventListener(
                     text.includes(term.source)
                 );
 
+            const translationLower =
+                result.translation.toLowerCase();
+            
             const glossaryTermsMatched =
                 glossaryTermsUsed.filter(term =>
-                    result.translation.includes(
-                        term.target
+                    translationLower.includes(
+                        term.target.toLowerCase()
                     )
                 );
 
