@@ -19,10 +19,22 @@ module.exports = async function (context, req) {
         process.env.OPENAI_DEPLOYMENT;
 
     const text =
-        req.body?.text;
+    req.body?.text;
 
     const maxLength =
-        req.body?.maxLength;
+    req.body?.maxLength;
+
+    const glossary =
+    req.body?.glossary || [];
+
+    context.log(
+        "GLOSSARY RECEIVED:",
+        JSON.stringify(
+            glossary,
+            null,
+            2
+        )
+    );
 
     if (!text) {
 

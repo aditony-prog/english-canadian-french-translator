@@ -412,6 +412,10 @@ translateBtn.addEventListener(
 
         try {
 
+            console.log(
+                "SENDING GLOSSARY:",
+                getGlossaryTerms()
+            );
             const response =
                 await fetch(
                     FUNCTION_URL,
@@ -426,7 +430,10 @@ translateBtn.addEventListener(
                         body: JSON.stringify({
                             text: processedText,
                             maxLength:
-                                getCharacterLimit()
+                                getCharacterLimit(),
+
+                            glossary:
+                                getGlossaryTerms()
                         })
                     }
                 );
