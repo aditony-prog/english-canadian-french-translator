@@ -568,7 +568,12 @@ translateBtn.addEventListener(
                 "qualityScore"
             ).textContent =
                 `${qualityScore}%`;
-
+            
+            document.getElementById(
+                "glossaryComplianceScore"
+            ).textContent =
+                `${glossaryComplianceScore}%`;
+            
             document.getElementById(
                 "protectedTermsScore"
             ).textContent =
