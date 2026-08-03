@@ -277,9 +277,14 @@ clearBtn.addEventListener("click", () => {
     ).textContent = "--%";
 
     document.getElementById(
-        "qualityLabel"
+    "qualityLabel"
     ).textContent =
-        "Awaiting Translation";
+    "Awaiting Translation";
+
+    document.getElementById(
+    "glossaryComplianceScore"
+    ).textContent =
+    "--";
 
     document.getElementById(
         "protectedTermsScore"
