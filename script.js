@@ -444,6 +444,7 @@ translateBtn.addEventListener(
                 QUALITY DASHBOARD
             */
 
+            let glossaryComplianceScore = 100;
             let protectedTermsScore = 100;
             let lengthComplianceScore = 100;
             let completenessScore = 100;
