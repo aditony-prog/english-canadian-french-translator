@@ -449,6 +449,35 @@ translateBtn.addEventListener(
             let lengthComplianceScore = 100;
             let completenessScore = 100;
 
+            const glossaryTerms =
+                getGlossaryTerms();
+
+            const glossaryTermsUsed =
+                glossaryTerms.filter(term =>
+                    text.includes(term.source)
+                );
+
+            const glossaryTermsMatched =
+                glossaryTermsUsed.filter(term =>
+                    result.translation.includes(
+                        term.target
+                    )
+                );
+
+            if (
+                glossaryTermsUsed.length > 0
+            ) {
+
+                glossaryComplianceScore =
+                    Math.round(
+                        (
+                            glossaryTermsMatched.length /
+                            glossaryTermsUsed.length
+                        ) * 100
+                    );
+            
+            }
+
             const protectedTermsUsed =
                 protectedTerms.filter(term =>
                     text.includes(term)
