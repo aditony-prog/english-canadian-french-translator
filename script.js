@@ -536,9 +536,10 @@ translateBtn.addEventListener(
             const qualityScore =
                 Math.round(
                     (
-                        protectedTermsScore * 0.4 +
-                        lengthComplianceScore * 0.3 +
-                        completenessScore * 0.3
+                        glossaryComplianceScore * 0.35 +
+                        protectedTermsScore * 0.25 +
+                        lengthComplianceScore * 0.20 +
+                        completenessScore * 0.20
                     )
                 );
 
