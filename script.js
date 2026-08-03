@@ -105,6 +105,34 @@ function getProtectedTerms() {
 
 }
 
+function getGlossaryTerms() {
+
+    if (!glossaryTermsField) {
+        return [];
+    }
+
+    return glossaryTermsField.value
+        .trim()
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line.includes("="))
+        .map(line => {
+
+            const parts =
+                line.split("=");
+
+            return {
+                source:
+                    parts[0].trim(),
+
+                target:
+                    parts[1].trim()
+            };
+
+        });
+
+}
+
 function applyDictionaryMarkup(text, terms) {
 
     let updatedText = text;
