@@ -19,13 +19,13 @@ module.exports = async function (context, req) {
         process.env.OPENAI_DEPLOYMENT;
 
     const text =
-    req.body?.text;
+        req.body?.text;
 
     const maxLength =
-    req.body?.maxLength;
+        req.body?.maxLength;
 
     const glossary =
-    req.body?.glossary || [];
+        req.body?.glossary || [];
 
     context.log(
         "GLOSSARY RECEIVED:",
@@ -83,10 +83,103 @@ module.exports = async function (context, req) {
         const translationResult =
             await translationResponse.json();
 
-        const translation =
+        let translation =
             translationResult[0]
                 .translations[0]
                 .text;
+
+        /*
+            PHASE 3A
+            SOFT GLOSSARY ENFORCEMENT
+        */
+
+        if (glossary.length > 0) {
+
+            const glossaryInstructions =
+                glossary
+                    .map(term =>
+                        `${term.source} → ${term.target}`
+                    )
+                    .join("\n");
+
+            const glossaryPrompt = `
+You are a Canadian French localization editor.
+
+Preferred terminology:
+
+${glossaryInstructions}
+
+Rules:
+- Use Canadian French.
+- Preserve meaning.
+- Prefer the terminology above whenever appropriate.
+- Return ONLY the corrected translation.
+- No explanations.
+- No quotation marks.
+
+Translation:
+${translation}
+`;
+
+            try {
+
+                const glossaryResponse =
+                    await fetch(
+                        `${openAiEndpoint}/responses`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${openAiKey}`
+                            },
+
+                            body: JSON.stringify({
+                                model:
+                                    openAiDeployment,
+
+                                input:
+                                    glossaryPrompt
+                            })
+                        }
+                    );
+
+                const glossaryResult =
+                    await glossaryResponse.json();
+
+                const messageOutput =
+                    glossaryResult.output?.find(
+                        item =>
+                            item.type ===
+                            "message"
+                    );
+
+                if (
+                    messageOutput &&
+                    messageOutput.content &&
+                    messageOutput.content.length > 0
+                ) {
+
+                    translation =
+                        messageOutput
+                            .content[0]
+                            .text
+                            .trim();
+                }
+
+            } catch (error) {
+
+                context.log(
+                    "Glossary enforcement skipped:",
+                    error.message
+                );
+
+            }
+
+        }
 
         const originalLength =
             translation.length;
@@ -143,15 +236,29 @@ module.exports = async function (context, req) {
 
         /*
             STEP 2
-            GPT-5 MINI SHORTENING
+            GPT SHORTENING
         */
+
+        const glossaryInstructions =
+            glossary.length > 0
+                ? glossary
+                    .map(term =>
+                        `${term.source} → ${term.target}`
+                    )
+                    .join("\n")
+                : "None";
 
         const prompt = `
 Rewrite this Canadian French text.
 
+Preferred terminology:
+
+${glossaryInstructions}
+
 Rules:
 - Use Canadian French.
 - Preserve meaning.
+- Preserve preferred terminology.
 - Preserve product names.
 - Preserve trademarks.
 - Preserve company names.
@@ -193,15 +300,6 @@ ${translation}
         const aiResult =
             await aiResponse.json();
 
-        context.log(
-            "GPT RESPONSE:",
-            JSON.stringify(
-                aiResult,
-                null,
-                2
-            )
-        );
-
         let optimizedTranslation =
             translation;
 
@@ -228,11 +326,6 @@ ${translation}
             }
 
         } catch (error) {
-
-            console.error(
-                "GPT parse error:",
-                error
-            );
 
             optimizedTranslation =
                 translation;
