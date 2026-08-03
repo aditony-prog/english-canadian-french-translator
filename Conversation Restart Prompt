@@ -1,0 +1,58 @@
+I am continuing development of FRADI (ADI Canadian French Translator).
+
+Current architecture:
+
+Frontend:
+- Azure Static Web App
+- index.html
+- style.css
+- script.js
+
+Backend:
+- Azure Function App
+- adi-translator-api
+- translate function
+- api/translate/index.js
+
+Development tools:
+- VS Code
+- GitHub Desktop
+
+Current completed features:
+
+✅ Translation
+✅ Length Optimization
+✅ Do Not Translate
+✅ Translation Glossary
+✅ Glossary Persistence
+✅ Glossary Compliance
+✅ Quality Dashboard
+✅ Soft Glossary Enforcement
+
+Important implementation detail:
+
+Glossary terms are now sent from script.js to the Azure Function and influence translations.
+
+Proof:
+
+Customer=ZEBRA_TEST
+
+Customer
+
+returns
+
+ZEBRA_TEST
+
+The Azure Function is NOT connected to Deployment Center and must currently be updated manually through Azure Portal.
+
+Current UI goals:
+
+- Remove Swap Languages button
+- Make Translate primary CTA
+- Reduce prominence of Copy buttons
+- Reduce whitespace in lower cards
+- Potentially move Translation Quality into French output panel
+- Potentially convert Glossary and Do Not Translate into popups/modals
+
+Please continue from this state and act as my technical lead/product designer.
+`
