@@ -15,6 +15,9 @@ const translateBtn = document.getElementById("translateBtn");
 const protectedTermsField =
     document.getElementById("protectedTerms");
 
+const glossaryTermsField =
+    document.getElementById("glossaryTerms");
+
 const maxLength =
     document.getElementById("maxLength");
 
@@ -62,7 +65,6 @@ maxLength.addEventListener("input", () => {
         ) {
 
             matchingPreset = true;
-
             button.classList.add("active");
 
         } else {
@@ -100,6 +102,7 @@ function getProtectedTerms() {
         .split("\n")
         .map(term => term.trim())
         .filter(term => term !== "");
+
 }
 
 function applyDictionaryMarkup(text, terms) {
@@ -116,6 +119,7 @@ function applyDictionaryMarkup(text, terms) {
     });
 
     return updatedText;
+
 }
 
 /*
@@ -136,6 +140,7 @@ function getCharacterLimit() {
     }
 
     return Number(value);
+
 }
 
 /*
@@ -155,10 +160,31 @@ if (protectedTermsField) {
 
         }
     );
+
 }
 
 /*
-    RESTORE PROTECTED TERMS
+    SAVE GLOSSARY TERMS
+*/
+
+if (glossaryTermsField) {
+
+    glossaryTermsField.addEventListener(
+        "input",
+        () => {
+
+            localStorage.setItem(
+                "adiGlossaryTerms",
+                glossaryTermsField.value
+            );
+
+        }
+    );
+
+}
+
+/*
+    RESTORE SAVED DATA
 */
 
 window.addEventListener("load", () => {
@@ -175,6 +201,21 @@ window.addEventListener("load", () => {
 
         protectedTermsField.value =
             savedTerms;
+
+    }
+
+    const savedGlossary =
+        localStorage.getItem(
+            "adiGlossaryTerms"
+        );
+
+    if (
+        glossaryTermsField &&
+        savedGlossary
+    ) {
+
+        glossaryTermsField.value =
+            savedGlossary;
 
     }
 
@@ -214,23 +255,19 @@ clearBtn.addEventListener("click", () => {
 
     document.getElementById(
         "protectedTermsScore"
-    ).textContent =
-        "--";
+    ).textContent = "--";
 
     document.getElementById(
         "lengthComplianceScore"
-    ).textContent =
-        "--";
+    ).textContent = "--";
 
     document.getElementById(
         "completenessScore"
-    ).textContent =
-        "--";
+    ).textContent = "--";
 
     document.getElementById(
         "reviewRequired"
-    ).textContent =
-        "--";
+    ).textContent = "--";
 
     const qualityBar =
         document.querySelector(
@@ -238,7 +275,10 @@ clearBtn.addEventListener("click", () => {
         );
 
     if (qualityBar) {
-        qualityBar.style.width = "0%";
+
+        qualityBar.style.width =
+            "0%";
+
     }
 
 });
@@ -268,6 +308,7 @@ copyBtn.addEventListener(
                 "Copy";
 
         }, 1500);
+
     }
 );
 
@@ -296,6 +337,7 @@ copyInputBtn.addEventListener(
                 "Copy";
 
         }, 1500);
+
     }
 );
 
@@ -317,6 +359,7 @@ translateBtn.addEventListener(
             );
 
             return;
+
         }
 
         const protectedTerms =
@@ -382,7 +425,9 @@ translateBtn.addEventListener(
                     result.translation.includes(term)
                 );
 
-            if (protectedTermsUsed.length > 0) {
+            if (
+                protectedTermsUsed.length > 0
+            ) {
 
                 protectedTermsScore =
                     Math.round(
@@ -417,7 +462,9 @@ translateBtn.addEventListener(
 
                 completenessScore = 60;
 
-            } else if (lengthRatio < 0.7) {
+            } else if (
+                lengthRatio < 0.7
+            ) {
 
                 completenessScore = 80;
 
@@ -435,14 +482,18 @@ translateBtn.addEventListener(
             let qualityRating =
                 "Excellent";
 
-            if (qualityScore < 90) {
+            if (
+                qualityScore < 90
+            ) {
 
                 qualityRating =
                     "Good";
 
             }
 
-            if (qualityScore < 80) {
+            if (
+                qualityScore < 80
+            ) {
 
                 qualityRating =
                     "Needs Review";
@@ -491,7 +542,9 @@ translateBtn.addEventListener(
             let statusMessage =
                 qualityRating;
 
-            if (result.optimized) {
+            if (
+                result.optimized
+            ) {
 
                 statusMessage =
                     `${qualityRating} • Optimized from ${result.originalLength} to ${result.finalLength} characters`;
@@ -528,6 +581,8 @@ translateBtn.addEventListener(
 
             translateBtn.textContent =
                 "Translate";
+
         }
+
     }
 );
