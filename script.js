@@ -599,7 +599,7 @@ translateBtn.addEventListener(
             if (footerQualityScore) {
 
                 footerQualityScore.textContent =
-                    `Quality: ${qualityScore}%`;
+                    `🎯 ${qualityScore}%`;
 
             }
 
@@ -627,6 +627,33 @@ translateBtn.addEventListener(
                 "reviewRequired"
             ).textContent =
                 qualityScore < 80 ? "Yes" : "No";
+
+            document.getElementById(
+                "tooltipGlossary"
+            ).textContent =
+                `${glossaryComplianceScore}%`;
+
+            document.getElementById(
+                "tooltipDnt"
+            ).textContent =
+                `${protectedTermsScore}%`;
+
+            document.getElementById(
+                "tooltipLength"
+            ).textContent =
+                `${lengthComplianceScore}%`;
+
+            document.getElementById(
+                "tooltipCompleteness"
+            ).textContent =
+                `${completenessScore}%`;
+
+            document.getElementById(
+                "tooltipReview"
+            ).textContent =
+                qualityScore < 80
+                    ? "Yes"
+                    : "No";
 
             const qualityBar =
                 document.querySelector(
