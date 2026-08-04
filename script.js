@@ -5,7 +5,6 @@ const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
 
 const inputCount = document.getElementById("inputCount");
-const outputCount = document.getElementById("outputCount");
 
 const footerOutputCount =
     document.getElementById("footerOutputCount");
@@ -279,7 +278,6 @@ clearBtn.addEventListener("click", () => {
     outputText.value = "";
 
     inputCount.textContent = "0";
-    outputCount.textContent = "0";
 
     document.getElementById(
         "qualityScore"
@@ -455,7 +453,6 @@ translateBtn.addEventListener(
                             text: processedText,
                             maxLength:
                                 getCharacterLimit(),
-
                             glossary:
                                 getGlossaryTerms()
                         })
@@ -479,9 +476,6 @@ translateBtn.addEventListener(
 
             outputText.value =
                 result.translation;
-
-            outputCount.textContent =
-                result.translation.length;
 
             if (footerOutputCount) {
 
@@ -513,9 +507,7 @@ translateBtn.addEventListener(
                     )
                 );
 
-            if (
-                glossaryTermsUsed.length > 0
-            ) {
+            if (glossaryTermsUsed.length > 0) {
 
                 glossaryComplianceScore =
                     Math.round(
@@ -537,9 +529,7 @@ translateBtn.addEventListener(
                     result.translation.includes(term)
                 );
 
-            if (
-                protectedTermsUsed.length > 0
-            ) {
+            if (protectedTermsUsed.length > 0) {
 
                 protectedTermsScore =
                     Math.round(
@@ -574,9 +564,7 @@ translateBtn.addEventListener(
 
                 completenessScore = 60;
 
-            } else if (
-                lengthRatio < 0.7
-            ) {
+            } else if (lengthRatio < 0.7) {
 
                 completenessScore = 80;
 
@@ -595,22 +583,12 @@ translateBtn.addEventListener(
             let qualityRating =
                 "Excellent";
 
-            if (
-                qualityScore < 90
-            ) {
-
-                qualityRating =
-                    "Good";
-
+            if (qualityScore < 90) {
+                qualityRating = "Good";
             }
 
-            if (
-                qualityScore < 80
-            ) {
-
-                qualityRating =
-                    "Needs Review";
-
+            if (qualityScore < 80) {
+                qualityRating = "Needs Review";
             }
 
             document.getElementById(
@@ -648,9 +626,7 @@ translateBtn.addEventListener(
             document.getElementById(
                 "reviewRequired"
             ).textContent =
-                qualityScore < 80
-                    ? "Yes"
-                    : "No";
+                qualityScore < 80 ? "Yes" : "No";
 
             const qualityBar =
                 document.querySelector(
@@ -667,9 +643,7 @@ translateBtn.addEventListener(
             let statusMessage =
                 qualityRating;
 
-            if (
-                result.optimized
-            ) {
+            if (result.optimized) {
 
                 statusMessage =
                     `${qualityRating} • Optimized from ${result.originalLength} to ${result.finalLength} characters`;
@@ -691,13 +665,9 @@ translateBtn.addEventListener(
 
         } catch (error) {
 
-            console.error("FULL ERROR:");
             console.error(error);
-            console.error(error.stack);
 
-            alert(
-                `ERROR:\n\n${error.message}\n\nCheck browser console for details.`
-            );
+            alert("Translation failed.");
 
         } finally {
 
