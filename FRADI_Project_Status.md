@@ -1,203 +1,338 @@
-# FRADI Project Status
+# FRADI Handoff
 
-## Project Overview
+## Current Status
 
-FRADI is an internal ADI Canadian French localization platform.
+FRADI is stable and working.
 
-Current capabilities:
+### Verified Features
 
-- English → Canadian French translation
 - Azure Translator integration
-- Azure OpenAI length optimization
-- Maximum output length enforcement
-- Do Not Translate support
-- Translation Glossary support
-- Glossary persistence
-- Glossary Compliance scoring
-- Translation Quality dashboard
-- Soft Glossary Enforcement
-
----
-
-## Environment
-
-### Frontend
-
-Hosted as:
-
-Azure Static Web App
-
-Files:
-
-- index.html
-- style.css
-- script.js
-
-Development:
-
-- VS Code
-- GitHub Desktop
-
----
-
-### Backend
-
-Hosted as:
-
-Azure Function App
-
-Name:
-
-adi-translator-api
-
-Primary function:
-
-translate
-
-File:
-
-api/translate/index.js
-
-Important:
-
-The Azure Function is NOT connected to Deployment Center.
-
-Backend updates require:
-
-1. Modify local file
-2. Commit
-3. Push
-4. Copy code into Azure Portal
-5. Save Function
-
----
-
-## Translation Flow
-
-Frontend
-
-Glossary
-↓
-script.js
-↓
-Azure Function
-
-Backend
-
-Azure Translator
-↓
-Soft Glossary Enforcement
-↓
-Length Optimization
-↓
-Return Translation
-
----
-
-## Completed Features
-
-### Phase 1
-
-- Translation
+- Translation output
+- Character counting
+- Do Not Translate (DNT)
+- Translation Glossary
 - Length optimization
-- Do Not Translate
+- Compliance scoring
+- LocalStorage persistence
+- Copy functionality
+- Footer metrics
+- Quality tooltip
+- Modal popups
 
-### Phase 2
+---
 
-- Glossary persistence
+## UX Improvements Completed
+
+### Copy Buttons
+
+Replaced text buttons with icon buttons.
+
+Before:
+
+```text
+Copy
+```
+
+After:
+
+```text
+⧉
+```
+
+Behavior:
+
+```text
+⧉ → ✓ → ⧉
+```
+
+### Translation Quality
+
+Removed the Translation Quality card.
+
+Quality now appears in footer:
+
+```text
+🎯 96%
+```
+
+Hover displays:
+
 - Glossary Compliance
-- Quality Dashboard
+- DNT Compliance
+- Length Compliance
+- Completeness
+- Review Required
 
-### Phase 3A
+### Translation Glossary
 
-- Glossary transport
-- Backend glossary reception
-- Soft Glossary Enforcement
+Moved into modal popup.
 
-Verified by:
+Features:
 
-Glossary:
+- Close button
+- Click outside to close
+- ESC key closes
+- LocalStorage persistence
 
-Customer=ZEBRA_TEST
+### Do Not Translate
 
-Input:
+Moved into modal popup.
 
-Customer
+Features:
 
-Result:
+- Close button
+- Click outside to close
+- ESC key closes
+- LocalStorage persistence
 
-ZEBRA_TEST
+### Length Settings
 
-This proved glossary terms now influence translations.
+Moved into modal popup.
 
----
+Features:
 
-## Current UI Feedback
-
-Desired improvements:
-
-### High Priority
-
-- Remove non-functional Swap Languages button
-- Make Translate primary CTA
-- Reduce prominence of Copy buttons
-- Eliminate excess whitespace
-
-### Potential Improvements
-
-- Move Translation Quality into French output panel
-- Remove standalone Translation Quality card
-- Convert Glossary into popup/modal
-- Convert Do Not Translate into popup/modal
-- Add glossary match explanations
-- Add glossary entry counter
+- Preset buttons
+- Custom length
+- Close button
+- Click outside to close
+- ESC key closes
 
 ---
 
-## Future Feature Ideas
+## Current Footer
 
-### Phase 3B
-
-Glossary Match Details
+```text
+📏 Character Count
+📐 Max Length
+🎯 Compliance Score
+```
 
 Example:
 
-✅ Customer → Client
-✅ Account → Compte
-✅ Product → Produit
-
-### Phase 4
-
-Document Upload
-
-Potential:
-
-- TXT upload
-- DOCX upload
-- DOCX export
-- Batch translation
-
-### Analytics
-
-Potential:
-
-- Application Insights
-- Translation count
-- Glossary usage metrics
-- Microsoft Clarity
+```text
+📏 58 chars
+📐 Max 160
+🎯 100%
+```
 
 ---
 
-## Naming Candidates
+## DNT Validation
 
-Favorites:
+Protected terms tested:
 
-- FRADI
-- FRADI Studio
-- FRADI AI
-- ADI Localize
-- CanADIan Translator
+```text
+ADI
+LTspice
+MAX32690
+CodeFusion
+```
 
-Current favorite:
+Source:
 
-FRADI
+```text
+ADI uses LTspice with MAX32690 in CodeFusion Studio.
+```
+
+Output:
+
+```text
+ADI utilise LTspice avec MAX32690 dans CodeFusion Studio.
+```
+
+Result:
+
+```text
+DNT Score = 100%
+```
+
+Conclusion:
+
+- DNT working correctly
+
+---
+
+## CSS Changes Made
+
+```css
+#inputText,
+#outputText {
+    min-height: 340px;
+}
+```
+
+```css
+#copyBtn,
+#copyInputBtn {
+    width: 32px;
+    height: 32px;
+}
+```
+
+Added secondary styling for:
+
+- Length Settings
+- Translation Glossary
+- Do Not Translate
+
+---
+
+## Future Cleanup
+
+Unused CSS likely remains:
+
+```css
+.settings-grid
+.quality-card
+.quality-bar
+.quality-bar-fill
+.quality-metrics
+.metric-row
+.metric-label
+.metric-value
+
+#qualityScore
+#qualityLabel
+```
+
+Not urgent.
+
+Leave in place until application is fully stabilized.
+
+---
+
+# Next Sprint
+
+## Readability Score
+
+Add:
+
+```text
+📝 Readability Score
+```
+
+Keep separate from:
+
+```text
+🎯 Compliance Score
+```
+
+Do NOT combine them.
+
+### Compliance Measures
+
+- Glossary compliance
+- DNT compliance
+- Length compliance
+- Completeness
+
+### Readability Measures
+
+- Grammar
+- Fluency
+- Naturalness
+- Canadian French style
+
+### Future Footer
+
+```text
+📏 58 chars
+📐 Max 160
+🎯 100%
+📝 92%
+```
+
+### Readability Tooltip
+
+```text
+Grammar
+Fluency
+Naturalness
+Canadian French Style
+```
+
+---
+
+## Phase 1
+
+Use heuristic scoring:
+
+- Repeated words
+- Sentence structure
+- Untranslated content
+- Punctuation
+- Length distribution
+
+Output:
+
+```text
+📝 0-100%
+```
+
+---
+
+## Phase 2
+
+Use Azure OpenAI evaluation.
+
+Example response:
+
+```json
+{
+  "readability": 94,
+  "fluency": 92,
+  "grammar": 97,
+  "naturalness": 91
+}
+```
+
+Display:
+
+```text
+📝 94%
+```
+
+---
+
+# Prompt For Next Session
+
+```text
+I am continuing work on FRADI (Canadian French Translator).
+
+Current State:
+
+- Azure Translator working
+- DNT working
+- Glossary working
+- Length optimization working
+- Quality score moved to footer tooltip
+- Translation Quality card removed
+- Glossary moved to modal popup
+- DNT moved to modal popup
+- Length Settings moved to modal popup
+- Copy icons implemented
+- Secondary settings buttons implemented
+- Translator panels increased to 340px height
+
+Current footer displays:
+
+📏 Character Count
+📐 Max Length
+🎯 Compliance Score
+
+Next Goal:
+
+Implement a separate 📝 Readability Score.
+
+Requirements:
+
+- Keep Compliance Score unchanged
+- Add Readability Score as separate metric
+- Add hover tooltip for Readability
+- Use heuristic scoring first
+- Do not modify Azure translation logic
+- Do not modify DNT logic
+- Do not modify Glossary logic
+- Prefer small, safe changes
+- Walk me through changes step-by-step
+```

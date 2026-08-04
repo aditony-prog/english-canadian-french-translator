@@ -1,58 +1,74 @@
-I am continuing development of FRADI (ADI Canadian French Translator).
+I am continuing development of FRADI (Canadian French Translator).
 
-Current architecture:
+Current State:
 
-Frontend:
-- Azure Static Web App
-- index.html
-- style.css
-- script.js
+✅ Azure Translator integration working
+✅ Translation output working
+✅ Character count working
+✅ Do Not Translate (DNT) working
+✅ Translation Glossary working
+✅ Length optimization working
+✅ Compliance scoring working
+✅ LocalStorage persistence working
+✅ Copy buttons converted to ⧉ icons
+✅ Quality card removed
+✅ Compliance score moved to footer tooltip
+✅ Translation Glossary moved to modal popup
+✅ Do Not Translate moved to modal popup
+✅ Length Settings moved to modal popup
+✅ Translator panel height increased to 340px
+✅ Settings buttons styled as secondary buttons
 
-Backend:
-- Azure Function App
-- adi-translator-api
-- translate function
-- api/translate/index.js
+Current Footer:
 
-Development tools:
-- VS Code
-- GitHub Desktop
+📏 Character Count
+📐 Maximum Length
+🎯 Compliance Score
 
-Current completed features:
+Current Modals:
 
-✅ Translation
-✅ Length Optimization
-✅ Do Not Translate
-✅ Translation Glossary
-✅ Glossary Persistence
-✅ Glossary Compliance
-✅ Quality Dashboard
-✅ Soft Glossary Enforcement
+⚙ Length Settings
+📖 Translation Glossary
+🚫 Do Not Translate
 
-Important implementation detail:
+Do Not Translate has been verified with:
 
-Glossary terms are now sent from script.js to the Azure Function and influence translations.
+ADI
+LTspice
+MAX32690
+CodeFusion
 
-Proof:
+Compliance Score currently measures:
 
-Customer=ZEBRA_TEST
+- Glossary Compliance
+- DNT Compliance
+- Length Compliance
+- Completeness
 
-Customer
+Next Goal:
 
-returns
+Add a separate 📝 Readability Score.
 
-ZEBRA_TEST
+Requirements:
 
-The Azure Function is NOT connected to Deployment Center and must currently be updated manually through Azure Portal.
+- Keep the existing 🎯 Compliance Score exactly as-is
+- Do NOT modify Azure translation logic
+- Do NOT modify Glossary logic
+- Do NOT modify DNT logic
+- Readability Score must be separate from Compliance Score
+- Add 📝 Readability Score to the footer
+- Add a hover tooltip for Readability
+- Implement a heuristic Readability Score first
+- Readability should evaluate:
+  - Grammar indicators
+  - Repeated words
+  - Punctuation quality
+  - Sentence structure
+  - Untranslated content
+  - Length/fluency indicators
+- Prefer small, low-risk changes
+- Walk me through implementation step-by-step
+- Do NOT generate full file replacements unless specifically requested
 
-Current UI goals:
-
-- Remove Swap Languages button
-- Make Translate primary CTA
-- Reduce prominence of Copy buttons
-- Reduce whitespace in lower cards
-- Potentially move Translation Quality into French output panel
-- Potentially convert Glossary and Do Not Translate into popups/modals
-
-Please continue from this state and act as my technical lead/product designer.
-`
+Before making changes, summarize the current architecture as you understand it and propose the readability scoring formula.
+``
