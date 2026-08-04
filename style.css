@@ -107,7 +107,7 @@ h1 {
 #inputText,
 #outputText {
     width: 100%;
-    min-height: 250px;
+    min-height: 340px;
 
     resize: none;
 
@@ -195,8 +195,16 @@ button:hover {
 
 #copyBtn,
 #copyInputBtn {
-    padding: 6px 12px;
-    font-size: 12px;
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
 }
 
 /* ==========================================
@@ -568,3 +576,19 @@ button:hover {
 
     resize: vertical;
 }
+
+#openLengthBtn,
+#openGlossaryBtn,
+#openDntBtn {
+    background: #f3f6f9;
+    color: var(--header-blue);
+    border: 1px solid var(--border);
+}
+
+#openLengthBtn:hover,
+#openGlossaryBtn:hover,
+#openDntBtn:hover {
+    background: #eaf1f7;
+}
+
+``
