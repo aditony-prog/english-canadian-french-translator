@@ -331,7 +331,7 @@ clearBtn.addEventListener("click", () => {
 
     if (footerMaxLength) {
         footerMaxLength.textContent =
-            "Unlimited";
+            "∞ Unlimited";
     }
 
     if (footerQualityScore) {
@@ -494,7 +494,7 @@ translateBtn.addEventListener(
                 footerMaxLength.textContent =
                     limit
                         ? `Max: ${limit}`
-                        : "Unlimited";
+                        : "∞ Unlimited";
 
             }
 

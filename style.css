@@ -183,11 +183,11 @@ button {
     color: white;
 
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
 
-    padding: 8px 16px;
+    padding: 10px 22px;
 
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 
     cursor: pointer;
@@ -613,4 +613,16 @@ button:hover {
     color: var(--primary);
 
     text-decoration: underline;
+}
+
+#clearBtn {
+    background: #f3f6f9;
+
+    color: var(--header-blue);
+
+    border: 1px solid var(--border);
+}
+
+#clearBtn:hover {
+    background: #eaf1f7;
 }
