@@ -120,12 +120,34 @@ h1 {
     line-height: 1.4;
 }
 
+/* English panel footer */
+
 .counter {
     padding: 8px 15px;
     border-top: 1px solid var(--border);
 
     color: var(--subtle);
     font-size: 13px;
+}
+
+/* French panel footer */
+
+.output-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 15px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--subtle);
+    font-size: 13px;
+}
+
+#footerQualityScore {
+    font-weight: 600;
+    color: var(--success);
 }
 
 /* ==========================================

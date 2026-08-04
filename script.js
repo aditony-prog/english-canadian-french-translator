@@ -7,6 +7,9 @@ const outputText = document.getElementById("outputText");
 const inputCount = document.getElementById("inputCount");
 const outputCount = document.getElementById("outputCount");
 
+const footerQualityScore =
+    document.getElementById("footerQualityScore");
+
 const clearBtn = document.getElementById("clearBtn");
 const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
@@ -275,6 +278,13 @@ clearBtn.addEventListener("click", () => {
     document.getElementById(
         "qualityScore"
     ).textContent = "--%";
+
+    if (footerQualityScore) {
+
+    footerQualityScore.textContent =
+        "Quality: --%";
+
+    }
 
     document.getElementById(
     "qualityLabel"
@@ -578,6 +588,13 @@ translateBtn.addEventListener(
                 "qualityScore"
             ).textContent =
                 `${qualityScore}%`;
+            
+            if (footerQualityScore) {
+
+                footerQualityScore.textContent =
+                    `Quality: ${qualityScore}%`;
+
+            }
             
             document.getElementById(
                 "glossaryComplianceScore"
