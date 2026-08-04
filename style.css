@@ -41,7 +41,7 @@ body {
 }
 
 .logo-placeholder {
-    width: 48px;
+    width: 70px;
     height: 48px;
     background: var(--header-blue);
     color: white;
