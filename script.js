@@ -559,53 +559,12 @@ translateBtn.addEventListener(
                     )
                 );
 
-            let qualityRating =
-                "Excellent";
-
-            if (qualityScore < 90) {
-                qualityRating = "Good";
-            }
-
-            if (qualityScore < 80) {
-                qualityRating = "Needs Review";
-            }
-
-            document.getElementById(
-                "qualityScore"
-            ).textContent =
-                `${qualityScore}%`;
-
             if (footerQualityScore) {
 
                 footerQualityScore.textContent =
                     `🎯 ${qualityScore}%`;
 
             }
-
-            document.getElementById(
-                "glossaryComplianceScore"
-            ).textContent =
-                `${glossaryComplianceScore}%`;
-
-            document.getElementById(
-                "protectedTermsScore"
-            ).textContent =
-                `${protectedTermsScore}%`;
-
-            document.getElementById(
-                "lengthComplianceScore"
-            ).textContent =
-                `${lengthComplianceScore}%`;
-
-            document.getElementById(
-                "completenessScore"
-            ).textContent =
-                `${completenessScore}%`;
-
-            document.getElementById(
-                "reviewRequired"
-            ).textContent =
-                qualityScore < 80 ? "Yes" : "No";
 
             document.getElementById(
                 "tooltipGlossary"
@@ -634,56 +593,21 @@ translateBtn.addEventListener(
                     ? "Yes"
                     : "No";
 
-            const qualityBar =
-                document.querySelector(
-                    ".quality-bar-fill"
-                );
+                    } catch (error) {
 
-            if (qualityBar) {
+                        console.error(error);
 
-                qualityBar.style.width =
-                    `${qualityScore}%`;
+                        alert("Translation failed.");
 
-            }
+                    } finally {
 
-            let statusMessage =
-                qualityRating;
+                        translateBtn.disabled =
+                            false;
 
-            if (result.optimized) {
+                        translateBtn.textContent =
+                            "Translate";
 
-                statusMessage =
-                    `${qualityRating} • Optimized from ${result.originalLength} to ${result.finalLength} characters`;
+                    }
 
-            } else if (
-                result.maxLength &&
-                result.withinLimit
-            ) {
-
-                statusMessage =
-                    `${qualityRating} • Within ${result.maxLength}-character limit`;
-
-            }
-
-            document.getElementById(
-                "qualityLabel"
-            ).textContent =
-                statusMessage;
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Translation failed.");
-
-        } finally {
-
-            translateBtn.disabled =
-                false;
-
-            translateBtn.textContent =
-                "Translate";
-
-        }
-
-    }
-);
+                }
+            );
