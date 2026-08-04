@@ -691,12 +691,12 @@ translateBtn.addEventListener(
 
         } catch (error) {
 
-            console.error(
-                error
-            );
+            console.error("FULL ERROR:");
+            console.error(error);
+            console.error(error.stack);
 
             alert(
-                "Translation failed."
+                `ERROR:\n\n${error.message}\n\nCheck browser console for details.`
             );
 
         } finally {
