@@ -134,8 +134,9 @@ h1 {
 
 .output-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 16px;
 
     padding: 8px 15px;
 
@@ -145,8 +146,13 @@ h1 {
     font-size: 13px;
 }
 
+#footerOutputCount,
+#footerMaxLength,
 #footerQualityScore {
     font-weight: 600;
+}
+
+#footerQualityScore {
     color: var(--success);
 }
 

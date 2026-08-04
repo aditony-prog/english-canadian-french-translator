@@ -7,6 +7,15 @@ const outputText = document.getElementById("outputText");
 const inputCount = document.getElementById("inputCount");
 const outputCount = document.getElementById("outputCount");
 
+const footerOutputCount =
+    document.getElementById("footerOutputCount");
+
+const footerMaxLength =
+    document.getElementById("footerMaxLength");
+
+const footerQualityScore =
+    document.getElementById("footerQualityScore");
+
 const footerQualityScore =
     document.getElementById("footerQualityScore");
 
@@ -279,6 +288,21 @@ clearBtn.addEventListener("click", () => {
         "qualityScore"
     ).textContent = "--%";
 
+    if (footerOutputCount) {
+    footerOutputCount.textContent =
+        "0 chars";
+    }
+
+    if (footerMaxLength) {
+        footerMaxLength.textContent =
+            "Unlimited";
+    }
+
+    if (footerQualityScore) {
+        footerQualityScore.textContent =
+            "Quality: --%";
+    }
+
     if (footerQualityScore) {
 
     footerQualityScore.textContent =
@@ -451,11 +475,30 @@ translateBtn.addEventListener(
             const result =
                 await response.json();
 
+            if (footerMaxLength) {
+
+                const limit =
+                    getCharacterLimit();
+
+                footerMaxLength.textContent =
+                    limit
+                        ? `Max: ${limit}`
+                        : "Unlimited";
+
+            }
+
             outputText.value =
                 result.translation;
 
             outputCount.textContent =
                 result.translation.length;
+
+            if (footerOutputCount) {
+
+                footerOutputCount.textContent =
+                    `${result.translation.length} chars`;
+
+            }
 
             /*
                 QUALITY DASHBOARD
@@ -588,6 +631,13 @@ translateBtn.addEventListener(
                 "qualityScore"
             ).textContent =
                 `${qualityScore}%`;
+
+            if (footerQualityScore) {
+
+                footerQualityScore.textContent =
+                    `Quality: ${qualityScore}%`;
+
+            }
             
             if (footerQualityScore) {
 
