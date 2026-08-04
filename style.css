@@ -61,7 +61,7 @@ body {
 
 h1 {
     margin: 0;
-    color: var(--header-blue);
+    color: var(--subtle);
     font-size: 1.8rem;
 }
 
@@ -126,9 +126,9 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: 12px;
 
-    padding: 8px 15px;
+    padding: 5px 15px;
 
     border-top: 1px solid var(--border);
 
@@ -201,6 +201,10 @@ button:hover {
 
 #copyBtn,
 #copyInputBtn {
+    background: transparent;
+
+    color: #4b5563;
+
     width: 32px;
     height: 32px;
 
@@ -211,6 +215,13 @@ button:hover {
     justify-content: center;
 
     font-size: 14px;
+}
+
+#copyBtn:hover,
+#copyInputBtn:hover {
+    background: #f3f6f9;
+
+    color: var(--header-blue);
 }
 
 /* ==========================================
@@ -590,9 +601,9 @@ button:hover {
 /* Add new code below here */
 
 .counter button {
-    background: transparent;
+    background: none;
 
-    color: var(--header-blue);
+    color: var(--subtle);
 
     border: none;
 
@@ -602,7 +613,11 @@ button:hover {
 
     font-size: 12px;
 
-    font-weight: 600;
+    font-weight: 500;
+
+    line-height: 1;
+
+    cursor: pointer;
 
     box-shadow: none;
 }
@@ -625,4 +640,14 @@ button:hover {
 
 #clearBtn:hover {
     background: #eaf1f7;
+}
+
+.translation-status {
+    padding: 8px 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--subtle);
+
+    font-size: 12px;
 }
