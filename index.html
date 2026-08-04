@@ -31,6 +31,8 @@
 
         <div class="translator-grid">
 
+            <!-- ENGLISH PANEL -->
+
             <div class="panel">
 
                 <div class="panel-header">
@@ -50,6 +52,8 @@
 
             </div>
 
+            <!-- FRENCH PANEL -->
+
             <div class="panel">
 
                 <div class="panel-header">
@@ -63,9 +67,90 @@
                     placeholder="Translation will appear here..."
                 ></textarea>
 
-                <div class="counter">
-                    Characters:
-                    <span id="outputCount">0</span>
+                <!-- NEW FOOTER -->
+
+                <div class="output-footer">
+
+                    <span>
+                        Characters:
+                        <span id="outputCount">0</span>
+                    </span>
+
+                    <span id="footerQualityScore">
+                        Quality: --%
+                    </span>
+
+                </div>
+
+                <!-- NEW QUALITY DETAILS AREA -->
+
+                <div class="quality-details-container">
+
+                    <button
+                        id="toggleQualityDetails"
+                        class="quality-toggle"
+                        type="button"
+                    >
+                        ▼ Quality Details
+                    </button>
+
+                    <div
+                        id="qualityDetailsPanel"
+                        class="quality-details hidden"
+                    >
+
+                        <div class="quality-row">
+                            <span>Glossary Compliance</span>
+                            <span
+                                class="metric-value"
+                                id="glossaryComplianceScore"
+                            >
+                                --
+                            </span>
+                        </div>
+
+                        <div class="quality-row">
+                            <span>Do Not Translate</span>
+                            <span
+                                class="metric-value"
+                                id="protectedTermsScore"
+                            >
+                                --
+                            </span>
+                        </div>
+
+                        <div class="quality-row">
+                            <span>Length Compliance</span>
+                            <span
+                                class="metric-value"
+                                id="lengthComplianceScore"
+                            >
+                                --
+                            </span>
+                        </div>
+
+                        <div class="quality-row">
+                            <span>Completeness</span>
+                            <span
+                                class="metric-value"
+                                id="completenessScore"
+                            >
+                                --
+                            </span>
+                        </div>
+
+                        <div class="quality-row">
+                            <span>Review Required</span>
+                            <span
+                                class="metric-value"
+                                id="reviewRequired"
+                            >
+                                --
+                            </span>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -183,7 +268,7 @@
 
             </div>
 
-            <!-- TRANSLATION QUALITY -->
+            <!-- EXISTING QUALITY CARD (KEEP TEMPORARILY) -->
 
             <div class="quality-card">
 
@@ -214,7 +299,7 @@
                         </span>
                         <span
                             class="metric-value"
-                            id="glossaryComplianceScore"
+                            id="qualityGlossaryDisplay"
                         >
                             --
                         </span>
@@ -226,7 +311,7 @@
                         </span>
                         <span
                             class="metric-value"
-                            id="protectedTermsScore"
+                            id="qualityProtectedDisplay"
                         >
                             --
                         </span>
@@ -238,7 +323,7 @@
                         </span>
                         <span
                             class="metric-value"
-                            id="lengthComplianceScore"
+                            id="qualityLengthDisplay"
                         >
                             --
                         </span>
@@ -250,7 +335,7 @@
                         </span>
                         <span
                             class="metric-value"
-                            id="completenessScore"
+                            id="qualityCompletenessDisplay"
                         >
                             --
                         </span>
@@ -262,7 +347,7 @@
                         </span>
                         <span
                             class="metric-value"
-                            id="reviewRequired"
+                            id="qualityReviewDisplay"
                         >
                             --
                         </span>
