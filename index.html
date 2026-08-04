@@ -37,13 +37,14 @@
 
                 <div class="panel-header">
                     <h3 id="sourceLanguage">English</h3>
-                    <button id="copyInputBtn">Copy</button>
+                    <button 2 id="copyInputBtn" 3 title="Copy Source Text" 4>
+                        5
+                        ⧉
+                        6
+                    </button>
                 </div>
 
-                <textarea
-                    id="inputText"
-                    placeholder="Enter text..."
-                ></textarea>
+                <textarea id="inputText" placeholder="Enter text..."></textarea>
 
                 <div class="counter">
                     Characters:
@@ -58,14 +59,12 @@
 
                 <div class="panel-header">
                     <h3 id="targetLanguage">French (CA)</h3>
-                    <button id="copyBtn">Copy</button>
+                    <button id="copyBtn" title="Copy Translation">
+                        ⧉
+                    </button>
                 </div>
 
-                <textarea
-                    id="outputText"
-                    readonly
-                    placeholder="Translation will appear here..."
-                ></textarea>
+                <textarea id="outputText" readonly placeholder="Translation will appear here..."></textarea>
 
                 <div class="output-footer">
 
@@ -103,6 +102,20 @@
 
         </div>
 
+        <!-- SETTINGS BUTTONS -->
+
+        <div class="actions toolbar">
+
+            <button id="openGlossaryBtn">
+                📖 Translation Glossary
+            </button>
+
+            <button id="openDntBtn">
+                🚫 Do Not Translate
+            </button>
+
+        </div>
+
         <div class="settings-grid">
 
             <!-- MAXIMUM FRENCH OUTPUT LENGTH -->
@@ -113,84 +126,50 @@
                     Maximum French Output Length
                 </h3>
 
-                <input
-                    type="number"
-                    id="maxLength"
-                    min="1"
-                    placeholder="Leave blank for unlimited"
-                    style="
+                <input type="number" id="maxLength" min="1" placeholder="Leave blank for unlimited" style="
                         width:100%;
                         padding:10px;
                         border-radius:6px;
                         border:1px solid #ccc;
                         box-sizing:border-box;
-                    "
-                >
+                    ">
 
-                <p
-                    style="
+                <p style="
                         margin-top:10px;
                         font-size:12px;
                         color:#666;
                         margin-bottom:8px;
-                    "
-                >
+                    ">
                     Enter the maximum number of characters allowed.
                 </p>
 
-                <div
-                    style="
+                <div style="
                         display:flex;
                         flex-wrap:wrap;
                         gap:4px;
-                    "
-                >
+                    ">
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="20"
-                    >
+                    <button type="button" class="preset-btn" data-length="20">
                         URL
                     </button>
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="15"
-                    >
+                    <button type="button" class="preset-btn" data-length="15">
                         Title
                     </button>
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="18"
-                    >
+                    <button type="button" class="preset-btn" data-length="18">
                         Headline
                     </button>
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="30"
-                    >
+                    <button type="button" class="preset-btn" data-length="30">
                         Subhead
                     </button>
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="50"
-                    >
+                    <button type="button" class="preset-btn" data-length="50">
                         Keywords
                     </button>
 
-                    <button
-                        type="button"
-                        class="preset-btn"
-                        data-length="160"
-                    >
+                    <button type="button" class="preset-btn" data-length="160">
                         Meta Desc
                     </button>
 
@@ -211,10 +190,7 @@
                 </div>
 
                 <div class="quality-bar">
-                    <div
-                        class="quality-bar-fill"
-                        id="qualityBarFill"
-                    ></div>
+                    <div class="quality-bar-fill" id="qualityBarFill"></div>
                 </div>
 
                 <p id="qualityLabel">
@@ -227,10 +203,7 @@
                         <span class="metric-label">
                             Glossary Compliance
                         </span>
-                        <span
-                            class="metric-value"
-                            id="glossaryComplianceScore"
-                        >
+                        <span class="metric-value" id="glossaryComplianceScore">
                             --
                         </span>
                     </div>
@@ -239,10 +212,7 @@
                         <span class="metric-label">
                             Do Not Translate
                         </span>
-                        <span
-                            class="metric-value"
-                            id="protectedTermsScore"
-                        >
+                        <span class="metric-value" id="protectedTermsScore">
                             --
                         </span>
                     </div>
@@ -251,10 +221,7 @@
                         <span class="metric-label">
                             Length Compliance
                         </span>
-                        <span
-                            class="metric-value"
-                            id="lengthComplianceScore"
-                        >
+                        <span class="metric-value" id="lengthComplianceScore">
                             --
                         </span>
                     </div>
@@ -263,10 +230,7 @@
                         <span class="metric-label">
                             Completeness
                         </span>
-                        <span
-                            class="metric-value"
-                            id="completenessScore"
-                        >
+                        <span class="metric-value" id="completenessScore">
                             --
                         </span>
                     </div>
@@ -275,10 +239,7 @@
                         <span class="metric-label">
                             Review Required
                         </span>
-                        <span
-                            class="metric-value"
-                            id="reviewRequired"
-                        >
+                        <span class="metric-value" id="reviewRequired">
                             --
                         </span>
                     </div>
@@ -287,44 +248,61 @@
 
             </div>
 
-            <!-- DO NOT TRANSLATE -->
+        </div>
 
-            <div class="quality-card">
+        <!-- GLOSSARY MODAL -->
 
-                <h3>
-                    Do Not Translate
-                </h3>
+        <div class="modal-overlay" id="glossaryModal">
 
-                <textarea
-                    id="protectedTerms"
-                    placeholder="ADI&#10;LTspice&#10;MAX32690&#10;CodeFusion"
-                ></textarea>
+            <div class="modal-content">
 
-            </div>
+                <div class="modal-header">
 
-            <!-- TRANSLATION GLOSSARY -->
+                    <h3>
+                        Translation Glossary
+                    </h3>
 
-            <div class="quality-card">
+                    <button type="button" class="modal-close" id="closeGlossaryBtn">
+                        ✕
+                    </button>
 
-                <h3>
-                    Translation Glossary
-                </h3>
+                </div>
 
-                <textarea
-                    id="glossaryTerms"
-                    placeholder="Customer=Client&#10;Account=Compte&#10;Product=Produit&#10;Lead=Prospect"
-                ></textarea>
+                <textarea id="glossaryTerms"
+                    placeholder="Customer=Client&#10;Account=Compte&#10;Product=Produit&#10;Lead=Prospect"></textarea>
 
-                <p
-                    style="
+                <p style="
                         margin-top:8px;
                         font-size:12px;
                         color:#666;
-                    "
-                >
+                    ">
                     One term per line using:
                     CAEN=CAFR
                 </p>
+
+            </div>
+
+        </div>
+
+        <!-- DO NOT TRANSLATE MODAL -->
+
+        <div class="modal-overlay" id="dntModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h3>
+                        Do Not Translate
+                    </h3>
+
+                    <button type="button" class="modal-close" id="closeDntBtn">
+                        ✕
+                    </button>
+
+                </div>
+
+                <textarea id="protectedTerms" placeholder="ADI&#10;LTspice&#10;MAX32690&#10;CodeFusion"></textarea>
 
             </div>
 

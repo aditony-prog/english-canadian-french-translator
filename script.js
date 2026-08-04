@@ -359,12 +359,12 @@ copyBtn.addEventListener(
         );
 
         copyBtn.textContent =
-            "Copied!";
+            "✓";
 
         setTimeout(() => {
 
             copyBtn.textContent =
-                "Copy";
+                "⧉";
 
         }, 1500);
 
@@ -388,12 +388,12 @@ copyInputBtn.addEventListener(
         );
 
         copyInputBtn.textContent =
-            "Copied!";
+                "✓";
 
         setTimeout(() => {
 
             copyInputBtn.textContent =
-                "Copy";
+                    "⧉";
 
         }, 1500);
 
