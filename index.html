@@ -140,15 +140,19 @@
         <!-- SETTINGS BUTTONS -->
 
         <div class="actions toolbar">
-
+        
+            <button id="openLengthBtn">
+                ⚙ Length Settings
+            </button>
+        
             <button id="openGlossaryBtn">
                 📖 Translation Glossary
             </button>
-
+        
             <button id="openDntBtn">
                 🚫 Do Not Translate
             </button>
-
+        
         </div>
 
         <div class="settings-grid">
@@ -214,6 +218,77 @@
 
         </div>
 
+        <!-- LENGTH SETTINGS MODAL -->
+        
+        <div class="modal-overlay" id="lengthModal">
+        
+            <div class="modal-content">
+        
+                <div class="modal-header">
+        
+                    <h3>
+                        Maximum French Output Length
+                    </h3>
+        
+                    <button type="button" class="modal-close" id="closeLengthBtn">
+                        ✕
+                    </button>
+        
+                </div>
+        
+                <input type="number" id="maxLength" min="1" placeholder="Leave blank for unlimited" style="
+                        width:100%;
+                        padding:10px;
+                        border-radius:6px;
+                        border:1px solid #ccc;
+                        box-sizing:border-box;
+                        margin-bottom:12px;
+                    ">
+        
+                <p style="
+                        font-size:12px;
+                        color:#666;
+                        margin-bottom:12px;
+                    ">
+                    Enter the maximum number of characters allowed.
+                </p>
+        
+                <div style="
+                        display:flex;
+                        flex-wrap:wrap;
+                        gap:4px;
+                    ">
+        
+                    <button type="button" class="preset-btn" data-length="20">
+                        URL
+                    </button>
+        
+                    <button type="button" class="preset-btn" data-length="15">
+                        Title
+                    </button>
+        
+                    <button type="button" class="preset-btn" data-length="18">
+                        Headline
+                    </button>
+        
+                    <button type="button" class="preset-btn" data-length="30">
+                        Subhead
+                    </button>
+        
+                    <button type="button" class="preset-btn" data-length="50">
+                        Keywords
+                    </button>
+        
+                    <button type="button" class="preset-btn" data-length="160">
+                        Meta Desc
+                    </button>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+        
         <!-- GLOSSARY MODAL -->
 
         <div class="modal-overlay" id="glossaryModal">

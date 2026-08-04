@@ -32,6 +32,21 @@ const maxLength =
 const presetButtons =
     document.querySelectorAll(".preset-btn");
 
+const openLengthBtn =
+    document.getElementById(
+        "openLengthBtn"
+    );
+
+const closeLengthBtn =
+    document.getElementById(
+        "closeLengthBtn"
+    );
+
+const lengthModal =
+    document.getElementById(
+        "lengthModal"
+    );
+
 const openGlossaryBtn =
     document.getElementById(
         "openGlossaryBtn"
@@ -645,6 +660,46 @@ translateBtn.addEventListener(
 /*
     MODALS
 */
+
+openLengthBtn.addEventListener(
+    "click",
+    () => {
+
+        lengthModal.classList.add(
+            "active"
+        );
+
+    }
+);
+
+closeLengthBtn.addEventListener(
+    "click",
+    () => {
+
+        lengthModal.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+lengthModal.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target ===
+            lengthModal
+        ) {
+
+            lengthModal.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
 
 openGlossaryBtn.addEventListener(
     "click",
