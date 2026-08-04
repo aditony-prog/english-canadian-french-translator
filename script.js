@@ -32,6 +32,36 @@ const maxLength =
 const presetButtons =
     document.querySelectorAll(".preset-btn");
 
+const openGlossaryBtn =
+    document.getElementById(
+        "openGlossaryBtn"
+    );
+
+const openDntBtn =
+    document.getElementById(
+        "openDntBtn"
+    );
+
+const closeGlossaryBtn =
+    document.getElementById(
+        "closeGlossaryBtn"
+    );
+
+const closeDntBtn =
+    document.getElementById(
+        "closeDntBtn"
+    );
+
+const glossaryModal =
+    document.getElementById(
+        "glossaryModal"
+    );
+
+const dntModal =
+    document.getElementById(
+        "dntModal"
+    );
+
 /*
     PRESET LENGTH BUTTONS
 */
@@ -611,3 +641,116 @@ translateBtn.addEventListener(
 
                 }
             );
+
+/*
+    MODALS
+*/
+
+openGlossaryBtn.addEventListener(
+    "click",
+    () => {
+
+        glossaryModal.classList.add(
+            "active"
+        );
+
+    }
+);
+
+openDntBtn.addEventListener(
+    "click",
+    () => {
+
+        dntModal.classList.add(
+            "active"
+        );
+
+    }
+);
+
+closeGlossaryBtn.addEventListener(
+    "click",
+    () => {
+
+        glossaryModal.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+closeDntBtn.addEventListener(
+    "click",
+    () => {
+
+        dntModal.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+/*
+    CLOSE ON BACKDROP CLICK
+*/
+
+glossaryModal.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target ===
+            glossaryModal
+        ) {
+
+            glossaryModal.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
+
+dntModal.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target ===
+            dntModal
+        ) {
+
+            dntModal.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
+
+/*
+    ESC KEY CLOSE
+*/
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            glossaryModal.classList.remove(
+                "active"
+            );
+
+            dntModal.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
