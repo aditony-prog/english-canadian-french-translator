@@ -16,9 +16,6 @@ const footerMaxLength =
 const footerQualityScore =
     document.getElementById("footerQualityScore");
 
-const footerQualityScore =
-    document.getElementById("footerQualityScore");
-
 const clearBtn = document.getElementById("clearBtn");
 const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
@@ -289,8 +286,8 @@ clearBtn.addEventListener("click", () => {
     ).textContent = "--%";
 
     if (footerOutputCount) {
-    footerOutputCount.textContent =
-        "0 chars";
+        footerOutputCount.textContent =
+            "0 chars";
     }
 
     if (footerMaxLength) {
@@ -303,38 +300,35 @@ clearBtn.addEventListener("click", () => {
             "Quality: --%";
     }
 
-    if (footerQualityScore) {
-
-    footerQualityScore.textContent =
-        "Quality: --%";
-
-    }
+    document.getElementById(
+        "qualityLabel"
+    ).textContent =
+        "Awaiting Translation";
 
     document.getElementById(
-    "qualityLabel"
+        "glossaryComplianceScore"
     ).textContent =
-    "Awaiting Translation";
-
-    document.getElementById(
-    "glossaryComplianceScore"
-    ).textContent =
-    "--";
+        "--";
 
     document.getElementById(
         "protectedTermsScore"
-    ).textContent = "--";
+    ).textContent =
+        "--";
 
     document.getElementById(
         "lengthComplianceScore"
-    ).textContent = "--";
+    ).textContent =
+        "--";
 
     document.getElementById(
         "completenessScore"
-    ).textContent = "--";
+    ).textContent =
+        "--";
 
     document.getElementById(
         "reviewRequired"
-    ).textContent = "--";
+    ).textContent =
+        "--";
 
     const qualityBar =
         document.querySelector(
@@ -446,10 +440,6 @@ translateBtn.addEventListener(
 
         try {
 
-            console.log(
-                "SENDING GLOSSARY:",
-                getGlossaryTerms()
-            );
             const response =
                 await fetch(
                     FUNCTION_URL,
@@ -500,10 +490,6 @@ translateBtn.addEventListener(
 
             }
 
-            /*
-                QUALITY DASHBOARD
-            */
-
             let glossaryComplianceScore = 100;
             let protectedTermsScore = 100;
             let lengthComplianceScore = 100;
@@ -519,7 +505,7 @@ translateBtn.addEventListener(
 
             const translationLower =
                 result.translation.toLowerCase();
-            
+
             const glossaryTermsMatched =
                 glossaryTermsUsed.filter(term =>
                     translationLower.includes(
@@ -538,7 +524,7 @@ translateBtn.addEventListener(
                             glossaryTermsUsed.length
                         ) * 100
                     );
-            
+
             }
 
             const protectedTermsUsed =
@@ -638,19 +624,12 @@ translateBtn.addEventListener(
                     `Quality: ${qualityScore}%`;
 
             }
-            
-            if (footerQualityScore) {
 
-                footerQualityScore.textContent =
-                    `Quality: ${qualityScore}%`;
-
-            }
-            
             document.getElementById(
                 "glossaryComplianceScore"
             ).textContent =
                 `${glossaryComplianceScore}%`;
-            
+
             document.getElementById(
                 "protectedTermsScore"
             ).textContent =
