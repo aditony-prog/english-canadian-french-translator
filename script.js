@@ -279,10 +279,6 @@ clearBtn.addEventListener("click", () => {
 
     inputCount.textContent = "0";
 
-    document.getElementById(
-        "qualityScore"
-    ).textContent = "--%";
-
     if (footerOutputCount) {
         footerOutputCount.textContent =
             "0 chars";
@@ -295,50 +291,33 @@ clearBtn.addEventListener("click", () => {
 
     if (footerQualityScore) {
         footerQualityScore.textContent =
-            "Quality: --%";
+            "🎯 --%";
     }
 
     document.getElementById(
-        "qualityLabel"
-    ).textContent =
-        "Awaiting Translation";
-
-    document.getElementById(
-        "glossaryComplianceScore"
+        "tooltipGlossary"
     ).textContent =
         "--";
 
     document.getElementById(
-        "protectedTermsScore"
+        "tooltipDnt"
     ).textContent =
         "--";
 
     document.getElementById(
-        "lengthComplianceScore"
+        "tooltipLength"
     ).textContent =
         "--";
 
     document.getElementById(
-        "completenessScore"
+        "tooltipCompleteness"
     ).textContent =
         "--";
 
     document.getElementById(
-        "reviewRequired"
+        "tooltipReview"
     ).textContent =
         "--";
-
-    const qualityBar =
-        document.querySelector(
-            ".quality-bar-fill"
-        );
-
-    if (qualityBar) {
-
-        qualityBar.style.width =
-            "0%";
-
-    }
 
 });
 
