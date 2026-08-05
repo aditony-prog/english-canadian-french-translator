@@ -1,8 +1,38 @@
 const FUNCTION_URL =
     "https://adi-translator-api-dxgceahfdwe0fwbz.centralus-01.azurewebsites.net/api/translate";
 
+const copyIcon = `
+<svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+>
+    <rect
+        x="9"
+        y="9"
+        width="11"
+        height="11"
+        rx="2"
+    ></rect>
+
+    <path
+        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+    ></path>
+</svg>
+`;
+
 const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
+
+const translationStatus =
+    document.getElementById(
+        "translationStatus"
+    );
 
 const inputCount = document.getElementById("inputCount");
 
@@ -18,6 +48,13 @@ const footerQualityScore =
 const clearBtn = document.getElementById("clearBtn");
 const copyBtn = document.getElementById("copyBtn");
 const copyInputBtn = document.getElementById("copyInputBtn");
+
+copyBtn.innerHTML =
+    copyIcon;
+
+copyInputBtn.innerHTML =
+    copyIcon;
+
 const translateBtn = document.getElementById("translateBtn");
 
 const protectedTermsField =
@@ -382,13 +419,13 @@ copyBtn.addEventListener(
             outputText.value
         );
 
-        copyBtn.textContent =
+        copyBtn.innerHTML =
             "✓";
 
         setTimeout(() => {
 
-            copyBtn.textContent =
-                "⧉";
+            copyBtn.innerHTML =
+                copyIcon;
 
         }, 1500);
 
@@ -411,13 +448,13 @@ copyInputBtn.addEventListener(
             inputText.value
         );
 
-        copyInputBtn.textContent =
-                "✓";
+        copyInputBtn.innerHTML =
+            "✓";
 
         setTimeout(() => {
 
-            copyInputBtn.textContent =
-                    "⧉";
+            copyInputBtn.innerHTML =
+                copyIcon;
 
         }, 1500);
 

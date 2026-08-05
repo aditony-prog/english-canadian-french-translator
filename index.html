@@ -37,9 +37,7 @@
 
                 <div class="panel-header">
                     <h3 id="sourceLanguage">English</h3>
-                    <button id="copyInputBtn" title="Copy Source Text">
-                        ⧉
-                    </button>
+                    <button id="copyInputBtn" title="Copy Source Text"></button>
                 </div>
 
                 <textarea id="inputText" placeholder="Enter text..."></textarea>
@@ -67,17 +65,18 @@
             </div>
 
             <!-- FRENCH PANEL -->
-
+            
             <div class="panel">
-
+            
                 <div class="panel-header">
-                    <h3 id="targetLanguage">French (CA)</h3>
-                    <button id="copyBtn" title="Copy Translation">
-                        ⧉
-                    </button>
-                </div>
+                <h3 id="targetLanguage">French (CA)</h3>
+                <button id="copyBtn" title="Copy Translation"></button>
+            </div>
+            
+            <div id="translationStatus" class="translation-status"></div>
+            
+            <textarea id="outputText" readonly placeholder="Translation will appear here..."></textarea>
 
-                <textarea id="outputText" readonly placeholder="Translation will appear here..."></textarea>
 
                 <div class="output-footer">
 
@@ -86,7 +85,7 @@
                     </span>
 
                     <span id="footerMaxLength">
-                        Unlimited
+                        ∞ Unlimited
                     </span>
 
                     <div class="quality-tooltip-container">
@@ -98,7 +97,7 @@
                         <div id="qualityTooltip" class="quality-tooltip">
                     
                             <div class="tooltip-title">
-                                Translation Quality
+                                Translation Compliance
                             </div>
                     
                             <div>
