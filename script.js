@@ -29,9 +29,19 @@ const copyIcon = `
 const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
 
+const inputWarning =
+    document.getElementById(
+        "inputWarning"
+    );
+
 const translationStatus =
     document.getElementById(
         "translationStatus"
+    );
+
+const inputStatus =
+    document.getElementById(
+        "inputStatus"
     );
 
 const inputCount = document.getElementById("inputCount");
@@ -465,6 +475,53 @@ copyInputBtn.addEventListener(
     TRANSLATE
 */
 
+let translationAnimation;
+
+function startTranslationStatus() {
+
+    let dots = 1;
+
+    translationStatus.textContent =
+        "Translating.";
+
+    translationAnimation =
+        setInterval(() => {
+
+            dots++;
+
+            if (dots > 3) {
+                dots = 1;
+            }
+
+            translationStatus.textContent =
+                `Translating${".".repeat(dots)}`;
+
+        }, 400);
+
+}
+
+function stopTranslationStatus(
+    success = true
+) {
+
+    clearInterval(
+        translationAnimation
+    );
+
+    translationStatus.textContent =
+        success
+            ? "✓ Complete"
+            : "✕ Failed";
+
+    setTimeout(() => {
+
+        translationStatus.textContent =
+            "";
+
+    }, 1500);
+
+}
+
 translateBtn.addEventListener(
     "click",
     async () => {
@@ -472,15 +529,34 @@ translateBtn.addEventListener(
         const text =
             inputText.value.trim();
 
+        inputStatus.textContent =
+            "";
+
+        inputWarning.classList.remove(
+            "visible"
+        );
+
+        inputWarning.textContent =
+            "";
+
         if (!text) {
 
-            alert(
-                "Enter text first."
-            );
+            inputStatus.textContent =
+                "Please enter text";
+
+            setTimeout(() => {
+
+                inputStatus.textContent =
+                    "";
+
+            }, 2000);
+
+            inputText.focus();
 
             return;
 
         }
+
 
         const protectedTerms =
             getProtectedTerms();
@@ -491,8 +567,9 @@ translateBtn.addEventListener(
                 protectedTerms
             );
 
-        translateBtn.disabled =
-            true;
+        translateBtn.disabled = true;
+
+        startTranslationStatus();
 
         translateBtn.textContent =
             "Translating...";
@@ -537,6 +614,8 @@ translateBtn.addEventListener(
 
             outputText.value =
                 result.translation;
+
+            stopTranslationStatus(true);
 
             if (footerOutputCount) {
 
@@ -678,6 +757,8 @@ translateBtn.addEventListener(
                     } catch (error) {
 
                         console.error(error);
+                        
+                        stopTranslationStatus(false);
 
                         alert("Translation failed.");
 
@@ -716,24 +797,6 @@ closeLengthBtn.addEventListener(
         lengthModal.classList.remove(
             "active"
         );
-
-    }
-);
-
-lengthModal.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target ===
-            lengthModal
-        ) {
-
-            lengthModal.classList.remove(
-                "active"
-            );
-
-        }
 
     }
 );
@@ -783,46 +846,6 @@ closeDntBtn.addEventListener(
 );
 
 /*
-    CLOSE ON BACKDROP CLICK
-*/
-
-glossaryModal.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target ===
-            glossaryModal
-        ) {
-
-            glossaryModal.classList.remove(
-                "active"
-            );
-
-        }
-
-    }
-);
-
-dntModal.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target ===
-            dntModal
-        ) {
-
-            dntModal.classList.remove(
-                "active"
-            );
-
-        }
-
-    }
-);
-
-/*
     ESC KEY CLOSE
 */
 
@@ -833,6 +856,10 @@ document.addEventListener(
         if (
             event.key === "Escape"
         ) {
+
+            lengthModal.classList.remove(
+                "active"
+            );
 
             glossaryModal.classList.remove(
                 "active"

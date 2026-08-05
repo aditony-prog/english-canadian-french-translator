@@ -580,20 +580,25 @@ button:hover {
 }
 
 .modal-close {
-    width: 34px;
-    height: 34px;
+    background: var(--primary);
 
-    padding: 0;
+    color: white;
 
-    background: #eef2f7;
-    color: var(--text);
+    border: none;
 
-    border: 1px solid var(--border);
     border-radius: 8px;
+
+    padding: 8px 16px;
+
+    width: auto;
+    height: auto;
+
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .modal-close:hover {
-    background: #dce9f8;
+    background: var(--primary-hover);
 }
 
 .modal-content textarea {
@@ -677,18 +682,48 @@ button:hover {
     color: var(--subtle);
 }
 
-.translation-status {
-    display: none;
-
-    text-align: center;
+#translationStatus {
+    margin-left: auto;
+    margin-right: 12px;
 
     color: var(--subtle);
 
     font-size: 12px;
-
-    padding: 6px 0;
 }
 
-.translation-status.visible {
+#inputStatus {
+    margin-left: auto;
+    margin-right: 12px;
+
+    color: #b45309;
+
+    font-size: 12px;
+}
+
+.counter button:focus,
+.counter button:focus-visible {
+    outline: none;
+    box-shadow: none;
+
+    color: var(--primary);
+
+    text-decoration: underline;
+}
+
+.input-warning {
+    display: none;
+
+    padding: 8px 14px;
+
+    color: #b45309;
+
+    font-size: 13px;
+
+    border-top: 1px solid var(--border);
+
+    background: #fffbeb;
+}
+
+.input-warning.visible {
     display: block;
 }

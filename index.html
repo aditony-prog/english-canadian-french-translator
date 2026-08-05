@@ -36,11 +36,18 @@
             <div class="panel">
 
                 <div class="panel-header">
-                    <h3 id="sourceLanguage">English</h3>
+                
+                    <h3>English</h3>
+                
+                    <span id="inputStatus"></span>
+                
                     <button id="copyInputBtn" title="Copy Source Text"></button>
+                
                 </div>
 
                 <textarea id="inputText" placeholder="Enter text..."></textarea>
+
+                <div id="inputWarning" class="input-warning"></div>
 
                 <div class="counter">
                 
@@ -69,12 +76,17 @@
             <div class="panel">
             
                 <div class="panel-header">
-                <h3 id="targetLanguage">French (CA)</h3>
-                <button id="copyBtn" title="Copy Translation"></button>
-            </div>
-            
-            <div id="translationStatus" class="translation-status"></div>
-            
+                
+                    <h3 id="targetLanguage">
+                        French (CA)
+                    </h3>
+                
+                    <span id="translationStatus"></span>
+                
+                    <button id="copyBtn" title="Copy Translation"></button>
+                
+                </div>
+                        
             <textarea id="outputText" readonly placeholder="Translation will appear here..."></textarea>
 
 
@@ -166,9 +178,9 @@
                     </h3>
         
                     <button type="button" class="modal-close" id="closeLengthBtn">
-                        ✕
+                        Save
                     </button>
-        
+
                 </div>
         
                 <input type="number" id="maxLength" min="1" placeholder="Leave blank for unlimited" style="
@@ -185,7 +197,7 @@
                         color:#666;
                         margin-bottom:12px;
                     ">
-                    Enter the maximum number of characters allowed.
+                    Set a maximum character limit for the French translation. Select one of the Content Doc presets below or enter your own custom value. Leaving it blank will default to unlimited.
                 </p>
         
                 <div style="
@@ -237,21 +249,20 @@
                     </h3>
 
                     <button type="button" class="modal-close" id="closeGlossaryBtn">
-                        ✕
+                        Save
                     </button>
 
                 </div>
 
                 <textarea id="glossaryTerms"
-                    placeholder="Customer=Client&#10;Account=Compte&#10;Product=Produit&#10;Lead=Prospect"></textarea>
+                    placeholder="Access Control=Contrôle d’accès&#10;Video Surveillance=Surveillance vidéo&#10;Fire=Produits d’incendie Accessories"></textarea>
 
                 <p style="
                         margin-top:8px;
                         font-size:12px;
                         color:#666;
                     ">
-                    One term per line using:
-                    CAEN=CAFR
+                    Enter approved translations using the format English=French. Use one entry per line.
                 </p>
 
             </div>
@@ -271,12 +282,20 @@
                     </h3>
 
                     <button type="button" class="modal-close" id="closeDntBtn">
-                        ✕
+                        Save
                     </button>
 
                 </div>
 
-                <textarea id="protectedTerms" placeholder="ADI&#10;LTspice&#10;MAX32690&#10;CodeFusion"></textarea>
+                <textarea id="protectedTerms" placeholder="OvrC&#10;Ring&#10;Lightfinder"></textarea>
+                
+                <p style="
+                        margin-top:8px;
+                        font-size:12px;
+                        color:#666;
+                    ">
+                    Enter terms that should never be translated. Use one term per line.
+                </p>
 
             </div>
 
